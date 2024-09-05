@@ -1,1 +1,15 @@
-test
+moet er een note bij verlof staan over waarom hij/zij weg is.
+
+is er een admin paneel nodig om bv rollen aante passen of naar meer persoonlijke informatie te kijken.
+
+als je over je verlof saldo gaat, gaat het in de min of word er door de vingers heen gekeken
+
+"Automatische overdracht van afwezigheidsgegevens naar de betalingsinstanties" ???
+
+"Personalisatie van goedkeuringsprocedures" ???
+
+kunnen we dit maken met php en phpmyadmin voor de DB
+
+	wat voor een api is handig/makkelijk om dat te gebruiken hierbij
+	
+	
