@@ -17,7 +17,10 @@ Briefly define the scope of the software, including what the software will do an
 ## 2. Overall Description
 
 ### 2.1 Product Perspective
-Explain how the software fits within a larger system or context, if applicable. This may include a system interface diagram or descriptions of interactions with other systems.
+GeoProfs is a surveying agency. The company was founded 15 years ago by current director Johan de Lange. In those years, the company has built up a good reputation in the construction, infrastructure sector and industry. The company is known for being fast, innovative and very reliable.
+After studying Surveying, Johan de Lange started as an independent professional. It soon became clear that the demand for specialists in the field of surveying and Geo ICT is high. Johan decided to hire staff to meet the demand and to adapt to the digitalization of the field. Soon fifteen people were employed.
+In addition to specialists in the field of surveying, ICT specialists in the field of Geo ICT, drones, digital image processing and 3D scanning were also employed. GeoProfs now employs eighty employees.
+For now they use an Excel sheet to keep track of people's leave, but they want to change that because it quickly becomes confusing when eighty people are employed, so they asked us to come up with and create a solution.
 
 ### 2.2 Product Functions
 Summarize the major functions that the software will perform. Each function should be briefly described to provide a high-level understanding of the software.
