@@ -29,7 +29,9 @@ with office management creating the different projects, and managers managing th
 Project managers manage the requests of their respective team members. Office managers manage the project managers.
 
 ### 2.3 User Classes and Characteristics
-Describe the different types of users who will interact with the software and their respective characteristics.
+Employees: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Employees must be able to view their team's absence schedule. 
+
+Managers: Can approve or reject their team's leave requests. Must be able to create accounts for employees. Managers must be able to view the entire leave schedule. Managers should receive notifications when there is a request.
 
 ### 2.4 Operating Environment
 Define the environment under which the software will operate, including hardware, operating systems, and other required software.
