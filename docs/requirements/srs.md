@@ -23,7 +23,10 @@ In addition to specialists in the field of surveying, ICT specialists in the fie
 For now they use an Excel sheet to keep track of people's leave, but they want to change that because it quickly becomes confusing when eighty people are employed, so they asked us to come up with and create a solution.
 
 ### 2.2 Product Functions
-Summarize the major functions that the software will perform. Each function should be briefly described to provide a high-level understanding of the software.
+Users will be able to log into our system using an account made for them by the company. They will be able to request different kinds of leave and absence types, which
+will be approved or rejected by their managers. The system will allow for the outlining of a generic company hierarchy,
+with office management creating the different projects, and managers managing the different teams within these projects.
+Project managers manage the requests of their respective team members. Office managers manage the project managers.
 
 ### 2.3 User Classes and Characteristics
 Describe the different types of users who will interact with the software and their respective characteristics.
