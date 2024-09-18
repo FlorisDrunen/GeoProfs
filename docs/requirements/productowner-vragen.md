@@ -21,6 +21,8 @@
 * Moet een manager, in het geval van een afkeuring, een reden geven? ***Absoluut!***
 * Kunnen er comments op aanvragen worden geplaatst? Bijv. als een aanvraag onduidelijk is kan het fijn zijn om voor meer informatie te vragen. ***Nee, de aanvraag wordt in het geval van onduidelijkheid terug gestuurd.***
 
+* Hebben team managers een verlofssaldo?***Ja een team manager heeft eem verlofssaldo***
+
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
 * ***De manager bepaald of de verlofdag gratis is of niet.***
 * ***Een aanvraag kan worden teruggetrokken, gewijzigd en opnieuw worden verstuurd.***
