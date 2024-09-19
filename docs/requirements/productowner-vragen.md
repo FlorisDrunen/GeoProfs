@@ -23,6 +23,8 @@
 
 * Hebben team managers een verlofssaldo?***Ja een team manager heeft eem verlofssaldo***
 
+* Wie maakt werknemer accounts aan?***Enkel de office manager***
+
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
 * ***De manager bepaald of de verlofdag gratis is of niet.***
 * ***Een aanvraag kan worden teruggetrokken, gewijzigd en opnieuw worden verstuurd.***
