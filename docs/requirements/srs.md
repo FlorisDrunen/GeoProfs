@@ -29,9 +29,11 @@ with office management creating the different projects, and managers managing th
 Project managers manage the requests of their respective team members. Office managers manage the project managers.
 
 ### 2.3 User Classes and Characteristics
-Employees: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Employees must be able to view their team's absence schedule. 
+Employees: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Employees must be able to view their team's absence schedule. Eployees have a set amount of off days, they must be able to see how many they have left.
 
-Managers: Can approve or reject their team's leave requests. Must be able to create accounts for employees. Managers must be able to view the entire leave schedule. Managers should receive notifications when there is a request.
+Team managers: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Team managers must be able to view their team's absence schedule. Team managers can approve or reject leave days of eployees. Team managers have a set amount of off days, they must be able to see how many they have left.
+
+Office managers: Can approve or reject team managers leave requests. Must be able to create accounts for employees and team managers. Office managers must be able to view the entire leave schedule. Office managers should receive notifications when there is a request. Office managers should be able to act as a team manager incase of an emergancy.
 
 ### 2.4 Operating Environment
 Define the environment under which the software will operate, including hardware, operating systems, and other required software.
