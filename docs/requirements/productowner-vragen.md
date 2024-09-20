@@ -23,6 +23,8 @@
 
 * Hebben team managers een verlofssaldo?***Ja een team manager heeft eem verlofssaldo***
 
+* Wie keurt de verlofsaanvragen van de werknemers goed, de team manager of office manager? ***De team manager, in het geval van nood pakt de office manager het op.***
+
 * Wie maakt werknemer accounts aan?***Enkel de office manager***
 
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
