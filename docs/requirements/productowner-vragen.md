@@ -19,6 +19,7 @@
 * Manager moeten een melding krijgen in het geval van onvoorziene afwezigheden. Hoe wordt een onvoorziene afwezigheid geregistreerd? ***Een verlofsaanvraag moet een bepaalde tijd van tevoren worden verstuurd. Als je te laat een aanvraag doet krijgt je manager hier een melding over.***
 
 * Moet een manager, in het geval van een afkeuring, een reden geven? ***Absoluut!***
+  
 * Kunnen er comments op aanvragen worden geplaatst? Bijv. als een aanvraag onduidelijk is kan het fijn zijn om voor meer informatie te vragen. ***Nee, de aanvraag wordt in het geval van onduidelijkheid terug gestuurd.***
 
 * Hebben team managers een verlofssaldo?***Ja een team manager heeft eem verlofssaldo***
@@ -26,6 +27,17 @@
 * Wie keurt de verlofsaanvragen van de werknemers goed, de team manager of office manager? ***De team manager, in het geval van nood pakt de office manager het op.***
 
 * Wie maakt werknemer accounts aan?***Enkel de office manager***
+
+* Moet een verlofsaanvraag een reden hebben, moet dit als keuze of is dit niet nodig? ***Ja er moet een reden zijn, office manager bepaalt of het een bijzondere verlofsaanvraag is. Voor ziekmeldingen is een reden niet nodig***
+
+* Moet een al geaccepteerde verlofsaanvraag kunnen worden teruggetrokken als het ineens niet nodig is, als dat kan; wanner is dat te laat?***Kan niet worden teruggetrokken.***
+
+* Wat voor tijdschema van een verlofsaanvraag wordt er gebruikt, mogen kwartieren, half uur, kwartvoor, losse minuten, etc? ***Halve dagen op z'n kleinst. Geen tijden.***
+
+* Zij er meerdere office managers, zoja is 1 office manger verantwoordelijk voor een specifieke team manager?***Er zijn meerdere office managers. Als er een team manager afwezig is krijgt iedere office manager hier een notificatie van, ze zijn dus niet verbonden aan een specifiek team.***
+
+* Hoe moet het met wijzigen van een verlofsaanvraag?***Office manager kan het bekijken maar niet goedkeuren of afkeuren.****
+
 
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
 * ***De manager bepaald of de verlofdag gratis is of niet.***
