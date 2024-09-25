@@ -36,7 +36,11 @@
 
 * Zij er meerdere office managers, zoja is 1 office manger verantwoordelijk voor een specifieke team manager?***Er zijn meerdere office managers. Als er een team manager afwezig is krijgt iedere office manager hier een notificatie van, ze zijn dus niet verbonden aan een specifiek team.***
 
-* Hoe moet het met wijzigen van een verlofsaanvraag?***Office manager kan het bekijken maar niet goedkeuren of afkeuren.****
+* Hoe moet het met wijzigen van een verlofsaanvraag?***Office manager kan het bekijken maar niet goedkeuren of afkeuren.***
+
+* Moet een werknemer bij meerdere temas kunnen zitten?***Nog niet beantwoord.***
+
+* Moet verlofssaldo hardcoded of niet?***Nog niet beantwoord.***
 
 
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
