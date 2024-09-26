@@ -42,6 +42,8 @@
 
 * Moet verlofssaldo hardcoded of niet?***Nog niet beantwoord.***
 
+* Wat gebeurt er als de office manager verlof wilt aanvragen?***Nog geen antwoord.***
+
 
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
 * ***De manager bepaald of de verlofdag gratis is of niet.***
