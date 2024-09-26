@@ -38,7 +38,7 @@
 
 * Hoe moet het met wijzigen van een verlofsaanvraag?***Office manager kan het bekijken maar niet goedkeuren of afkeuren.***
 
-* Moet een werknemer bij meerdere temas kunnen zitten?***Nog niet beantwoord.***
+* Moet een werknemer bij meerdere teams kunnen zitten?***Nog niet beantwoord.***
 
 * Moet verlofssaldo hardcoded of niet?***Nog niet beantwoord.***
 
