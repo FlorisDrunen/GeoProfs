@@ -38,11 +38,11 @@
 
 * Hoe moet het met wijzigen van een verlofsaanvraag?***Office manager kan het bekijken maar niet goedkeuren of afkeuren.***
 
-* Moet een werknemer bij meerdere teams kunnen zitten?***Nog niet beantwoord.***
+* Moet een werknemer bij meerdere teams kunnen zitten?***Nee***
 
-* Moet verlofssaldo hardcoded of niet?***Nog niet beantwoord.***
+* Moet verlofssaldo hardcoded of niet?***Per werknemer ingezet door office manager, mag daarna niet veranderd worden.***
 
-* Wat gebeurt er als de office manager verlof wilt aanvragen?***Nog geen antwoord.***
+* Wat gebeurt er als de office manager verlof wilt aanvragen? moeten zij dit kunnen?***niet in systeem.***
 
 
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
