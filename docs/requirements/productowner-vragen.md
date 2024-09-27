@@ -40,9 +40,9 @@
 
 * Moet een werknemer bij meerdere teams kunnen zitten?***Nee***
 
-* Moet verlofssaldo hardcoded of niet?***Per werknemer ingezet door office manager, mag daarna niet veranderd worden.***
+* Moet verlofssaldo hardcoded of niet?***Wordt per werknemer eringezet door office manager, mag daarna niet meer veranderd worden.***
 
-* Wat gebeurt er als de office manager verlof wilt aanvragen? moeten zij dit kunnen?***niet in systeem.***
+* Wat gebeurt er als de office manager verlof wilt aanvragen? moeten zij dit kunnen?***niet in systeem/niet relevant voor ons.***
 
 
 * ***Nood-dagen worden niet betaald; verlofs- en ziekdagen wel.***
