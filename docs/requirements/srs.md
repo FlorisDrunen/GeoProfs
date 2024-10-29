@@ -26,7 +26,7 @@ For now they use an Excel sheet to keep track of people's leave, but they want t
 Users will be able to log into our system using an account made for them by the company. They will be able to request different kinds of leave and absence types, which
 will be approved or rejected by their managers. The system will allow for the outlining of a generic company hierarchy,
 with office management creating the different projects, and managers managing the different teams within these projects.
-Project managers manage the requests of their respective team members. Office managers manage the project managers.
+Project managers manage the requests of their respective team members, and office managers manage the project managers.
 
 ### 2.3 User Classes and Characteristics
 Employees: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Employees must be able to view their team's absence schedule. 
