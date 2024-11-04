@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
     # MySQL Service
-    mysql:
+    db:
         image: mysql:latest
         container_name: geoprofs-lars-db
         environment:
@@ -18,7 +16,7 @@ services:
             - laravel_network
 
     # Laravel/PHP Service
-    app:
+    backend:
         build:
             context: .
             dockerfile: Dockerfile
@@ -28,7 +26,7 @@ services:
         volumes:
             - .:/var/www/html
         depends_on:
-            - mysql
+            - db
         networks:
             - laravel_network
 
