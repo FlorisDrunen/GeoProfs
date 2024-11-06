@@ -16,7 +16,7 @@ services:
             - laravel_network
 
     # Laravel/PHP Service
-    backend:
+    app:
         build:
             context: .
             dockerfile: Dockerfile
