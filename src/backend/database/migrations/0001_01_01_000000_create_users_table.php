@@ -12,24 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id(); // Primary key
+            $table->string('first_name', 255); // Default length is 255
+            $table->string('last_name', 255);
+            //$table->integer('leave_balance')->default(0); // Default leave balance
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+//            $table->string('phone_number', 15)->nullable();
+//            $table->foreignId('team_id')
+//                ->nullable()
+//                ->constrained('teams')
+//                ->onDelete('set null'); // Set to NULL on delete
+//            $table->foreignId('role_id')
+//                ->nullable()
+//                ->constrained('roles')
+//                ->onDelete('set null'); // Set to NULL on delete
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->string('email', 255)->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('user_id')
+                ->nullable() // Allow NULL values for anonymous sessions
+                ->constrained('users');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
@@ -42,8 +53,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };

@@ -18,10 +18,34 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    /**
+     * The table associated with the model.
+     */
+    protected $table = 'users';
+
+    /**
+     * The primary key associated with the table.
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = true;
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        //'leave_balance',
         'email',
         'password',
+        //'phone_number',
+        //'team_id',
+        //'role_id'
     ];
 
     /**
