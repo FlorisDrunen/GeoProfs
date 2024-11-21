@@ -5,10 +5,10 @@ namespace tests\Unit;
 use App\Http\Controllers\Api\AuthController;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use PHPUnit\Framework\TestCase;
 
 class AuthControllerUnitTest extends TestCase
 {
@@ -16,7 +16,7 @@ class AuthControllerUnitTest extends TestCase
 
     public function test_register_validation_fails()
     {
-        $controller = new AuthController();
+        $authController = new AuthController();
 
         $request = new Request([
             'first_name' => '',
@@ -28,7 +28,7 @@ class AuthControllerUnitTest extends TestCase
 
         $this->expectException(ValidationException::class);
 
-        $controller->register($request);
+        $authController->register($request);
     }
 
     public function test_register_creates_user()
@@ -48,6 +48,7 @@ class AuthControllerUnitTest extends TestCase
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertArrayHasKey('message', $response->getData(true));
         $this->assertArrayHasKey('user', $response->getData(true));
+        $this->assertArrayHasKey('token', $response->getData(true));
     }
 
     public function test_login_with_invalid_email()

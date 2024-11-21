@@ -1,8 +1,10 @@
 services:
-    # MySQL Service
+    # MySQL Service (Development)
     db:
         image: mysql:latest
         container_name: geoprofs-lars-db
+        env_file:
+            - ./src/backend/.env
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -15,15 +17,17 @@ services:
         networks:
             - laravel_network
 
-    # Test MySQL Service
+    # MySQL Service (Testing)
     db_test:
         image: mysql:latest
         container_name: geoprofs-lars-db_test
+        env_file:
+            - ./src/backend/.env.testing
         environment:
-            MYSQL_ROOT_PASSWORD: R8+@hkBe
-            MYSQL_DATABASE: geoprofs_lars_db_test
-            MYSQL_USER: geoprofs_lars_user_test
-            MYSQL_PASSWORD: B2+;5)cK
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
             - "3308:3306"
         volumes:
@@ -34,19 +38,16 @@ services:
     # Laravel/PHP Service
     backend:
         build:
-            context: .
+            context: ./src/backend
             dockerfile: Dockerfile
         container_name: geoprofs-lars-backend
         ports:
             - "8080:8000"
-        develop:
-            watch:
-            - action: sync
-              path: ./back-end
-              target: /var/www/html
-
+        volumes:
+            - ./src/backend:/var/www/html:cached
         depends_on:
             - db
+            - db_test
         networks:
             - laravel_network
 
