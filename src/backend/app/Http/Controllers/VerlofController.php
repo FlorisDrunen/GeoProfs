@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Verlof;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class VerlofController extends Controller
 {
@@ -12,13 +15,18 @@ class VerlofController extends Controller
      */
     public function index()
     {
-        $verlof = Verlof::all();
-         
-        return view('verlof.index', compact('verlof'));
+    $verlof = DB::table('verlof')
+        ->join('status', 'verlof.StatusID', '=', 'status.StatusID')
+        ->select('verlof.*', 'status.Naam', 'status.Omschrijving')
+        ->get();
+    
+    // Gebruik één compact-aanroep met alle variabelen
+    return view('verlof.index', compact('verlof'));
     }
 
     public function create()
     {
+        $statussen = Status::all(); // Haal alle status-opties op
         return view('verlof.create'); // Zorg ervoor dat de verlof.create view bestaat
     }
 
@@ -30,6 +38,7 @@ class VerlofController extends Controller
             'EindTijd' => 'required|date_format:H:i',
             'EindDatum' => 'required|date|after_or_equal:BeginDatum',
             'Reden' => 'required|string|max:255',
+            'StatusID' => 'nullable|exists:status,StatusID',
         ]);
 
         // Maak een nieuw verlof record aan met de gevalideerde gegevens

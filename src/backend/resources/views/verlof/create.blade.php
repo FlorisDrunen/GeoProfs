@@ -29,8 +29,13 @@
                 <label for="Reden">Reden</label>
                 <textarea name="Reden" id="Reden" required></textarea>
             </div>
+            <div>
+                <input type="hidden" name="StatusID" value="1">
+            </div>
 
-            <button type="submit" class="btn btn-primary">Aanmaken</button>
+
+            <a href="{{ route('verlof.index') }}" class="btn btn-primary mb-3">Annuleren</a>
+            <button type="submit" class="btn btn-primary">Aanvragen</button>
         </form>
     </div>
 

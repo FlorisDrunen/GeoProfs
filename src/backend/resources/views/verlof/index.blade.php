@@ -8,7 +8,7 @@
             </div>
         @endif
 
-        <a href="{{ route('verlof.create') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanmaken</a>
+        <a href="{{ route('verlof.create') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanvragen</a>
 
         <table class="table">
             <thead>
@@ -18,6 +18,8 @@
                     <th>Eind Tijd</th>
                     <th>Eind Datum</th>
                     <th>Reden</th>
+                    <th>Status</th>
+                    <th>Status omschrijving</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,8 +30,11 @@
                         <td>{{ $item->EindTijd }}</td>
                         <td>{{ $item->EindDatum }}</td>
                         <td>{{ $item->Reden }}</td>
+                        <td>{{ $item->Naam }}</td>
+                        <td>{{ $item->Omschrijving }}</td>
                     </tr>
-                @endforeach
+                    @endforeach
+
             </tbody>
         </table>
     </div>

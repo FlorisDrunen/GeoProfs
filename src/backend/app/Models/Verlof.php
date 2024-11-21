@@ -27,6 +27,12 @@ class Verlof extends Model
         'BeginDatum',
         'EindTijd',
         'EindDatum',
-        'Reden'
+        'Reden',
+        'StatusID'
     ];
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'StatusID', 'StatusID');
+    }
 }
