@@ -15,13 +15,19 @@ class VerlofController extends Controller
      */
     public function index()
     {
-    $verlof = DB::table('verlof')
-        ->join('status', 'verlof.StatusID', '=', 'status.StatusID')
-        ->select('verlof.*', 'status.Naam', 'status.Omschrijving')
-        ->get();
+    // $verlof = DB::table('verlof')
+    //     ->join('status', 'verlof.StatusID', '=', 'status.StatusID')
+    //     ->select('verlof.*', 'status.Naam', 'status.Omschrijving')
+    //     ->get();
     
-    // Gebruik één compact-aanroep met alle variabelen
-    return view('verlof.index', compact('verlof'));
+    // // Gebruik één compact-aanroep met alle variabelen
+    // return view('verlof.index', compact('verlof'));
+
+        $verlofAanvragen = Verlof::all();
+        return response::json([
+            "verlofaanvragen" => $verlofAanvragen,
+            "message" => "enjoy"
+        ]);
     }
 
     public function create()
