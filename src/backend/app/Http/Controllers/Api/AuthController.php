@@ -22,7 +22,7 @@ class AuthController extends Controller
         $token = $user->createToken($request->first_name);
 
         return response()->json([
-            'message' => 'User created successfully!',
+            'message' => __('errormessages.auth.register.success'),
             'user' => $user,
             'token' => $token->plainTextToken
         ], 201);
@@ -39,21 +39,21 @@ class AuthController extends Controller
 
         if(!$user){
             return response()->json([
-                'error'=>'A user with the provided email address could not be found.',
+                'error'=>__('errormessages.auth.login.email_not_found'),
                 'provided email'=>$request->email
             ], 401);
         }
 
         if(!Hash::check($request->password, $user->password)){
             return response()->json([
-                'error'=>'The provided password is incorrect.'
+                'error'=>__('errormessages.auth.login.password_incorrect')
             ], 401);
         }
 
         $token = $user->createToken($user->first_name);
 
         return response()->json([
-            'message'=>'Login successful',
+            'message'=>__('errormessages.auth.login.success'),
             'user'=>$user,
             'token'=>$token->plainTextToken
         ]);
@@ -64,7 +64,7 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json([
-            'message'=>'Logout successful!',
+            'message'=>__('errormessages.auth.logout.success'),
         ]);
     }
 }
