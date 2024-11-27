@@ -23,11 +23,12 @@ class VerlofController extends Controller
     // // Gebruik één compact-aanroep met alle variabelen
     // return view('verlof.index', compact('verlof'));
 
-        $verlofAanvragen = Verlof::all();
-        return response::json([
-            "verlofaanvragen" => $verlofAanvragen,
-            "message" => "enjoy"
-        ]);
+    $verlofAanvragen = Verlof::all();
+    return response()->json([
+        "verlofaanvragen" => $verlofAanvragen,
+        "message" => "enjoy"
+    ]);
+
     }
 
     public function create()
