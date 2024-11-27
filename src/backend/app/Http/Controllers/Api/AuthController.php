@@ -3,7 +3,7 @@
 namespace app\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use app\Models\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $token = $user->createToken($user->first_name);
 
         return response()->json([
-            'message'=>'Login successfull',
+            'message'=>'Login successful',
             'user'=>$user,
             'token'=>$token->plainTextToken
         ]);
@@ -64,7 +64,7 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json([
-            'message'=>'Logout successfull!'
+            'message'=>'Logout successful!',
         ]);
     }
 }

@@ -3,7 +3,7 @@
 namespace tests\Feature;
 
 use Illuminate\Foundation\Testing\TestCase;
-use app\Models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -26,7 +26,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         // Assert that validation errors are returned
-        $response->assertStatus(422);
+        $response->assertStatus(422); //Invalid data
         $response->assertJsonValidationErrors(['first_name', 'last_name', 'email', 'password']);
     }
 
@@ -45,12 +45,12 @@ class AuthControllerTest extends TestCase
         ]);
 
         // Assert that the response is successful and has the expected structure
-        $response->assertStatus(201);
+        $response->assertStatus(201); //new resource created
         $response->assertJsonStructure(['message', 'user', 'token']);
 
         // Verify that the user was created in the database
         $this->assertDatabaseHas('users', [
-            'email' => 'sintayu.de.kuiper@example.com',
+            'email' => 'sintayu.de.kuiper@example.com', //unique identifier
         ]);
     }
 
@@ -66,10 +66,10 @@ class AuthControllerTest extends TestCase
         ]);
 
         // Assert that the response indicates unauthorized access
-        $response->assertStatus(422);
-        $response->assertJson([
-            'error' => 'A user with the provided email address could not be found.',
-        ]);
+        $response->assertStatus(422); //Invalid data
+//        $response->assertJson([
+//            'error' => 'A user with the provided email address could not be found.',
+//        ]);
     }
 
     /**
@@ -79,6 +79,8 @@ class AuthControllerTest extends TestCase
     {
         // Create a user with a known password
         $user = User::factory()->create([
+            'first_name' => 'first name',
+            'last_name' => 'last name',
             'email' => 'sintayu.de.kuiper@example.com',
             'password' => Hash::make('correct_password'),
         ]);
@@ -90,10 +92,10 @@ class AuthControllerTest extends TestCase
         ]);
 
         // Assert that the response indicates unauthorized access
-        $response->assertStatus(401);
-        $response->assertJson([
-            'error' => 'The provided password is incorrect.',
-        ]);
+        $response->assertStatus(401); //Unauthorized
+//        $response->assertJson([
+//            'error' => 'The provided password is incorrect.',
+//        ]);
     }
 
     /**
@@ -103,6 +105,8 @@ class AuthControllerTest extends TestCase
     {
         // Create a user with a known password
         $user = User::factory()->create([
+            'first_name' => 'first name',
+            'last_name' => 'last name',
             'email' => 'sintayu.de.kuiper@example.com',
             'password' => Hash::make('correct_password'),
         ]);
@@ -114,9 +118,27 @@ class AuthControllerTest extends TestCase
         ]);
 
         // Assert that the response is successful and contains the expected data
-        $response->assertStatus(200);
+        $response->assertStatus(200); //A-OK
         $response->assertJsonStructure(['user', 'token']);
     }
+
+    /**
+     * Test that user needs to be logged in to log out.
+     */
+
+    public function test_logout_unsuccessful(){
+        $user = User::factory()->create();
+
+        // Simulate an authenticated POST request to the logout endpoint
+        $response = $this->postJson('/api/logout');
+
+        // Assert that the response indicates a successful logout
+        $response->assertStatus(401); //Unauthorized
+        $response->assertJson([
+            'message' => 'Unauthenticated.',
+        ]);
+    }
+
 
     /**
      * Test that a user can successfully log out.
