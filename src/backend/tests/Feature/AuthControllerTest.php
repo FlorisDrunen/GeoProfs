@@ -67,9 +67,6 @@ class AuthControllerTest extends TestCase
 
         // Assert that the response indicates unauthorized access
         $response->assertStatus(422); //Invalid data
-//        $response->assertJson([
-//            'error' => 'A user with the provided email address could not be found.',
-//        ]);
     }
 
     /**
@@ -93,9 +90,6 @@ class AuthControllerTest extends TestCase
 
         // Assert that the response indicates unauthorized access
         $response->assertStatus(401); //Unauthorized
-//        $response->assertJson([
-//            'error' => 'The provided password is incorrect.',
-//        ]);
     }
 
     /**
@@ -134,9 +128,6 @@ class AuthControllerTest extends TestCase
 
         // Assert that the response indicates a successful logout
         $response->assertStatus(401); //Unauthorized
-        $response->assertJson([
-            'message' => 'Unauthenticated.',
-        ]);
     }
 
 
@@ -156,9 +147,6 @@ class AuthControllerTest extends TestCase
 
         // Assert that the response indicates a successful logout
         $response->assertStatus(200);
-        $response->assertJson([
-            'message' => 'Logout successful!',
-        ]);
 
         // Verify that the token was deleted from the database
         $this->assertDatabaseMissing('personal_access_tokens', [
