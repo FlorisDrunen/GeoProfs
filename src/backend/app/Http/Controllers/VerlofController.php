@@ -52,7 +52,10 @@ class VerlofController extends Controller
         Verlof::create($validatedData);
 
         // Redirect terug naar de verlof index met een succesmelding
-        return redirect()->route('verlof.index')->with('success', 'Verlof succesvol aangemaakt.');
+        // return redirect()->route('verlof.index')->with('success', 'Verlof succesvol aangemaakt.');
+        return response()->json([
+            "message" => "Data stored"
+        ]);
     }
 
 }
