@@ -1,14 +1,8 @@
-# Default environment
-ENV_FILE ?= ./src/backend/.env
-
-# Include environment variables
-include $(ENV_FILE)
-
 all: up
 
 # Start services
 up:
-	docker compose --env-file=$(ENV_FILE) up --build --remove-orphans --force-recreate
+	docker compose --env-file=src/backend/.env up --build --remove-orphans --force-recreate
 
 # Start testing services
 up-test:
@@ -17,7 +11,7 @@ up-test:
 migrate:
 	cd ./src/backend && docker-compose exec backend php artisan migrate
 
-migrate_test:
+migrate-test:
 	cd ./src/backend && docker-compose exec backend php artisan migrate --env=testing
 
 
