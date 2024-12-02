@@ -4,10 +4,6 @@ all: up
 up:
 	docker compose --env-file=src/backend/.env up --build --remove-orphans --force-recreate
 
-# Start testing services
-up-test:
-	docker compose --env-file=./src/backend/.env.testing up --build --remove-orphans --force-recreate
-
 migrate:
 	cd ./src/backend && docker-compose exec backend php artisan migrate
 
