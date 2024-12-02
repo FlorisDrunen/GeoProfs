@@ -54,8 +54,9 @@ class VerlofController extends Controller
         // Redirect terug naar de verlof index met een succesmelding
         // return redirect()->route('verlof.index')->with('success', 'Verlof succesvol aangemaakt.');
         return response()->json([
-            "message" => "Data stored"
-        ]);
+            'message' => 'Verlof successvol aangemaakt!',
+        ], 201);
+
     }
 
 }
