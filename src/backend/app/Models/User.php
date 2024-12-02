@@ -26,16 +26,6 @@ class User extends Authenticatable
     protected $table = 'users';
 
     /**
-     * The primary key associated with the table.
-     */
-    protected $primaryKey = 'id';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     */
-    public $incrementing = true;
-
-    /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
