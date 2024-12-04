@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
 {
-     /**
-     * Toon een lijst van alle verlofrecords.
-     */
     public function index()
     {
-
+        $statussen = Status::all();
+        return response()->json([
+            "Statussen" => $statussen,
+            "message" => "Lijst statussen in json"
+        ]);
     }
 
     public function create()
@@ -26,10 +28,6 @@ class StatusController extends Controller
             'Omschrijving' => 'required|string|max:255',
 
         ]);
-
-        // Maak een nieuw verlof record aan met de gevalideerde gegevens
-        Verlof::create($validatedData);
-
     }
 
 }
