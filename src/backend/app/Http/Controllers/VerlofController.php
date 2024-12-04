@@ -26,16 +26,17 @@ class VerlofController extends Controller
     $verlofAanvragen = Verlof::all();
     return response()->json([
         "verlofaanvragen" => $verlofAanvragen,
-        "message" => "enjoy"
+        // "verlof" => $verlof,
+        "message" => "Lijst verlofaanvragen in json"
     ]);
 
     }
 
-    public function create()
-    {
-        $statussen = Status::all(); // Haal alle status-opties op
-        return view('verlof.create'); // Zorg ervoor dat de verlof.create view bestaat
-    }
+    // public function create()
+    // {
+    //     $statussen = Status::all(); 
+    //     return view('verlof.create'); 
+    // }
 
     public function store(Request $request)
     {
