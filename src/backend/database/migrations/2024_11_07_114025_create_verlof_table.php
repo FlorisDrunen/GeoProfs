@@ -14,13 +14,15 @@ class CreateVerlofTable extends Migration
     public function up()
     {
         Schema::create('verlof', function (Blueprint $table) {
-            $table->id('VerlofID'); // Unieke primaire sleutel
-            $table->time('BeginTijd'); // Begin tijd
-            $table->date('BeginDatum'); // Begin datum
-            $table->time('EindTijd'); // Eind tijd
-            $table->date('EindDatum'); // Eind datum
-            $table->string('Reden'); // Reden voor het verlof
-            $table->timestamps(); // Tijd aangepast door gebruiker
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->time('begin_tijd');
+            $table->date('begin_datum');
+            $table->time('eind_tijd');
+            $table->date('eind_datum');
+            $table->enum('status', ['pending', 'approved', 'denied'])->default('pending');
+            $table->text('reden')->nullable();
+            $table->timestamps();
         });
     }
 

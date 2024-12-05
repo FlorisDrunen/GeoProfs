@@ -9,17 +9,13 @@ class Verlof extends Model
 {
     use HasFactory;
 
-    // Specificeer de tabelnaam als deze anders is dan de standaard
-    protected $table = 'verlof';
-
-    // Geef de velden op die ingevuld mogen worden
     protected $fillable = [
-        'BeginTijd',
-        'BeginDatum',
-        'EindTijd',
-        'EindDatum',
-        'Reden',
-        'StatusID'
+        'user_id',
+        'begin_tijd',
+        'begin_datum',
+        'eind_tijd',
+        'eind_datum',
+        'reden',
+        'status'
     ];
-
 }
