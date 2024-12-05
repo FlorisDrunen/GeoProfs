@@ -10,5 +10,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 // Test route
 Route::get('/', function (){
-    return 'test';
+    return 'API connected';
 });
