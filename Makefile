@@ -24,7 +24,7 @@ restart-%:
 
 # Stop the application
 down:
-	docker compose down --remove-orphans
+	docker compose down --remove-orphans --volumes
 
 down-%:
 	docker compose down --remove-orphans $*

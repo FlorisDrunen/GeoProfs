@@ -1,5 +1,5 @@
 services:
-  # MySQL Service (Development)
+  # MySQL Service
   db:
     image: mysql:latest
     container_name: geoprofs-lars-db

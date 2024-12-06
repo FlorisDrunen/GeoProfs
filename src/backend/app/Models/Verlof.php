@@ -9,6 +9,8 @@ class Verlof extends Model
 {
     use HasFactory;
 
+    protected $table = 'verlof';
+
     protected $fillable = [
         'user_id',
         'begin_tijd',

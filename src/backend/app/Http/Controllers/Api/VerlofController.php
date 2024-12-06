@@ -2,44 +2,40 @@
 
 namespace app\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Status;
 use App\Models\Verlof;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 
 class VerlofController extends Controller
 {
-    /**
-     * Toon een lijst van alle verlofrecords.
-     */
     public function index()
     {
+        $verlofAanvragen = Verlof::all();
 
-    $verlofAanvragen = Verlof::all();
-    return response()->json([
-        "verlofaanvragen" => $verlofAanvragen
-    ]);
-
+        return response()->json([
+            "verlofaanvragen" => $verlofAanvragen
+        ]);
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required|exists:users,id',
+        $validatedFields = $request->validate([
+            //'user_id' => 'required|exists:users,id',
+            'user_id' => 'required',
             'begin_tijd' => 'required|date_format:H:i',
-            'begin_datum' => 'required|date|after_or_equal:today',
+            'begin_datum' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'eind_tijd' => 'required|date_format:H:i',
-            'eind_datum' => 'required|date|after_or_equal:begin_datum',
+            'eind_datum' => 'required|date|date_format:Y-m-d|after_or_equal:begin_datum',
             'reden' => 'required',
             'status' => 'required'
         ]);
 
-        // Maak een nieuw verlof record aan met de gevalideerde gegevens
-        Verlof::create($validatedData);
+        $verlof = Verlof::create($validatedFields);
 
         return response()->json([
             'message' => 'Verlof successvol aangemaakt!',
+            'verlof' => $verlof
         ], 201);
     }
 }
