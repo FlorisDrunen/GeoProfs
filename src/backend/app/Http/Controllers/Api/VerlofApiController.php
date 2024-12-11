@@ -89,11 +89,13 @@ class VerlofApiController
     public function destroy(Request $request,string $id)
     {
         $verlof = Verlof::findOrFail($id);
-        if($request->user->id === $verlof->user_id){
-            Verlof::destroy($id);
-            return response()->json([
-                'message' => 'data destroyed'
-            ]);
+        if($request->user->id != $verlof->user_id){
+            return 'failed';
         }
+
+        Verlof::destroy($id);
+        return response()->json([
+            'message' => 'data destroyed'
+        ]);
     }
 }
