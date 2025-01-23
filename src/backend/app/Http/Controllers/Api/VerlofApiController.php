@@ -86,12 +86,12 @@ class VerlofApiController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,string $id)
+    public function destroy(Request $request, string $id)
     {
         $verlof = Verlof::findOrFail($id);
-        if($request->user->id != $verlof->user_id){
-            return 'failed';
-        }
+        // if($request->user->id != $verlof->user_id){
+        //     return 'failed';
+        // }
 
         Verlof::destroy($id);
         return response()->json([
