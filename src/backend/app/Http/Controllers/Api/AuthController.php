@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
     public function register(Request $request)
     {
         $validatedFields = $request->validate([
@@ -28,6 +32,10 @@ class AuthController extends Controller
         ], 201);
     }
 
+    public function showLogin()
+    {
+        return view('auth.login');
+    }
     public function login(Request $request)
     {
         $request->validate([
