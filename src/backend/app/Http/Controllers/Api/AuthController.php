@@ -43,6 +43,11 @@ class AuthController extends Controller
             'password'=>'required'
         ]);
 
+        if (User::attempt($request->only('email', 'password'))) {
+            // Redirect naar dashboard
+            return redirect()->route('dashboard');
+        }
+
         $user = User::where('email', $request->email)->first();
 
         if(!$user){
