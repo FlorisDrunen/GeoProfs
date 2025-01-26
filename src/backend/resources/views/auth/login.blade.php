@@ -5,7 +5,11 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <title>Login</title>
 </head>
+<?php
+    // $login = App\Http\Controllers\Api\AuthController::login;
+?>
 <body>
+
     <div class="login-box">
         <h1>Login</h1>
         <form method="POST" action="{{ route('login') }}">

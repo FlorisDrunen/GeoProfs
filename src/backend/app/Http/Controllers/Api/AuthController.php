@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -38,6 +39,8 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
+        
+        Log::info("it do  work, u no suck");
         $request->validate([
             'email'=>'required|email|exists:users',
             'password'=>'required'
