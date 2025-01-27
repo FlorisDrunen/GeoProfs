@@ -63,6 +63,12 @@ class User extends Authenticatable
         ];
     }
 
+    public function verlof()
+{
+    return $this->hasMany(Verlof::class, 'user_id', 'id');
+}
+
+
     protected static function newFactory()
     {
         return UserFactory::new();

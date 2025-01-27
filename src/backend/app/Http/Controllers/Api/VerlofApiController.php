@@ -12,12 +12,13 @@ class VerlofApiController
      */
     public function index()
     {
-        $verlofAanvragen = Verlof::all();
-
+        $verlofAanvragen = Verlof::with('user')->get();
+    
         return response()->json([
             "verlofaanvragen" => $verlofAanvragen
         ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -25,8 +26,7 @@ class VerlofApiController
     public function store(Request $request)
     {
         $validatedFields = $request->validate([
-            //'user_id' => 'required|exists:users,id',
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             'begin_tijd' => 'required|date_format:H:i',
             'begin_datum' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'eind_tijd' => 'required|date_format:H:i',
@@ -34,28 +34,26 @@ class VerlofApiController
             'reden' => 'required',
             'status' => 'required'
         ]);
-
+    
         $verlof = Verlof::create($validatedFields);
-
+    
         return response()->json([
-            'message' => 'Verlof successvol aangemaakt!',
+            'message' => 'Verlof succesvol aangemaakt!',
             'verlof' => $verlof
         ], 201);
     }
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $verlof = Verlof::findOrFail($id);
+public function show(string $id)
+{
+    $verlof = Verlof::with('user')->findOrFail($id);
 
-        if(!$verlof){
-            return "verlof aanvraag met id $id bestaat niet";
-        }
+    return response()->json($verlof);
+}
 
-        return response()->json($verlof);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -66,7 +64,7 @@ class VerlofApiController
 
         $validatedFields = $request->validate([
             //'user_id' => 'required|exists:users,id',
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             'begin_tijd' => 'required|date_format:H:i',
             'begin_datum' => 'required|date|date_format:Y-m-d|after_or_equal:today',
             'eind_tijd' => 'required|date_format:H:i',
