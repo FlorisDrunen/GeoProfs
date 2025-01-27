@@ -7,10 +7,13 @@
 <body>
     <div class="register-box">
          <h1>Register</h1>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route(name: 'register') }}">
         @csrf
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <label for="name">First Name:</label>
+        <input type="text" id="name" name="first_name" required>
+        <br>
+        <label for="name">Last Name:</label>
+        <input type="text" id="name" name="last_name" required>
         <br>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>

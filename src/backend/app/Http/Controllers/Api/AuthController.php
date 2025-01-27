@@ -40,7 +40,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         
-        Log::info("it do  work, u no suck");
+      
         $request->validate([
             'email'=>'required|email|exists:users',
             'password'=>'required'
