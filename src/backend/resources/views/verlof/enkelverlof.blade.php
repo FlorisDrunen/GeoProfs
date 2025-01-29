@@ -7,8 +7,12 @@
                 {{ session('success') }}
             </div>
         @endif
+        <form action="{{ url('/api/verlof-delete/' . $verlofAanvragen->id) }}" method="POST">
+     @csrf
+      @method('DELETE') 
+       <button type="submit" class="btn btn-danger">Verwijderen</button>
+        </form>
 
-        <a href="{{ route('verlofAanvraag') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanvragen</a>
 
         <table class="table">
             <thead>
@@ -23,17 +27,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($verlofAanvragen as $item)
+
                     <tr>
-                        <td>{{ $item->begin_tijd }}</td>
-                        <td>{{ $item->begin_datum }}</td>
-                        <td>{{ $item->eind_tijd }}</td>
-                        <td>{{ $item->eind_datum }}</td>
-                        <td>{{ $item->reden }}</td>
-                        <td>{{ $item->naam }}</td>
-                        <!-- <td>{{ $item->omschrijving }}</td> -->
+                        <td>{{ $verlofAanvragen->begin_tijd }}</td>
+                        <td>{{ $verlofAanvragen->begin_datum }}</td>
+                        <td>{{ $verlofAanvragen->eind_tijd }}</td>
+                        <td>{{ $verlofAanvragen->eind_datum }}</td>
+                        <td>{{ $verlofAanvragen->reden }}</td>
+                        <td>{{ $verlofAanvragen->naam }}</td>
+
                     </tr>
-                    @endforeach
+
 
             </tbody>
         </table>

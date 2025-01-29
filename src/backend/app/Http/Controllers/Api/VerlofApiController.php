@@ -14,11 +14,17 @@ class VerlofApiController
     {
         $verlofAanvragen = Verlof::with('user')->get();
 
-        return view('verlof.verlofoverzicht');
+        return view('verlof.verlofoverzicht', compact('verlofAanvragen'));
     
         // return response()->json([
         //     "verlofaanvragen" => $verlofAanvragen
         // ]);
+    }
+    
+
+    public function create()
+    {
+        return view('verlof.verlofaanvraag'); 
     }
     
 
@@ -38,11 +44,12 @@ class VerlofApiController
         ]);
     
         $verlof = Verlof::create($validatedFields);
+        return redirect()->route('verlofOverzicht');
     
-        return response()->json([
-            'message' => 'Verlof succesvol aangemaakt!',
-            'verlof' => $verlof
-        ], 201);
+        // return response()->json([
+        //     'message' => 'Verlof succesvol aangemaakt!',
+        //     'verlof' => $verlof
+        // ], 201);
     }
     
 
@@ -51,9 +58,14 @@ class VerlofApiController
      */
 public function show(string $id)
 {
-    $verlof = Verlof::with('user')->findOrFail($id);
+    $verlofAanvragen = Verlof::with('user')->findOrFail($id);
 
-    return response()->json($verlof);
+    if (!$verlofAanvragen) {
+        return redirect()->route('verlofOverzicht')->with('error', 'Verlofaanvraag niet gevonden.');
+    }else{
+        return view('verlof.enkelVerlof', compact('verlofAanvragen'));
+    }
+
 }
 
 
@@ -94,8 +106,10 @@ public function show(string $id)
         // }
 
         Verlof::destroy($id);
-        return response()->json([
-            'message' => 'data destroyed'
-        ]);
+        return redirect()->route('verlofOverzicht');
+
+        // return response()->json([
+        //     'message' => 'data destroyed'
+        // ]);
     }
 }

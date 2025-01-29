@@ -15,8 +15,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 // Route::apiresource('verlof', VerlofApiController::class);
 
-Route::get('/verlof-overzicht', [VerlofApiController::class, 'index']);
-Route::post('/verlof-nieuw', [VerlofApiController::class, 'store']);
-Route::get('/verlof/{id}', [VerlofApiController::class, 'show']);
+Route::get('/verlof-overzicht', [VerlofApiController::class, 'index'])->name('verlofOverzicht');
+
+Route::get('/verlof-aanvraag', [VerlofApiController::class, 'create'])->name('verlofAanvraag');
+Route::post('/verlof-nieuw', [VerlofApiController::class, 'store'])->name('verlofNieuw');
+
+Route::get('/verlof/{id}', [VerlofApiController::class, 'show'])->name('enkelVerlof');
 Route::put('/verlof-update/{id}', [VerlofApiController::class, 'update']);
-Route::delete('/verlof-delete/{id}', [VerlofApiController::class, 'destroy']);
+Route::delete('/verlof-delete/{id}', [VerlofApiController::class, 'destroy'])->name('verlofVerwijderen');
