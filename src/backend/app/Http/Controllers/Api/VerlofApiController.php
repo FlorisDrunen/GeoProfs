@@ -13,10 +13,12 @@ class VerlofApiController
     public function index()
     {
         $verlofAanvragen = Verlof::with('user')->get();
+
+        return view('verlof.verlofoverzicht');
     
-        return response()->json([
-            "verlofaanvragen" => $verlofAanvragen
-        ]);
+        // return response()->json([
+        //     "verlofaanvragen" => $verlofAanvragen
+        // ]);
     }
     
 
