@@ -4,7 +4,7 @@
 <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <title>Register</title>
 </head>
-<body>
+<body class="register-body">
     <div class="register-box">
          <h1>Register</h1>
     <form method="POST" action="{{ route(name: 'register') }}">

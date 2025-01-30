@@ -8,7 +8,7 @@
 <?php
     // $login = App\Http\Controllers\Api\AuthController::login;
 ?>
-<body>
+<body class="login-body">
 
     <div class="login-box">
         <h1>Login</h1>
