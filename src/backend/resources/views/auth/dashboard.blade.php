@@ -16,8 +16,17 @@
             <button class="dashboard-button" type="submit">Logout</button>
         </form>
     </div>
+    <div class="dashboard-nav-container">
+        <p>a</p>
+        <p>b</p>
+        <p>c</p>
+        <p>d</p>
+        <p>e</p>
+        <p>f</p>
+    </div>
+    <div class="dashboard-info">
 
-
+    </div>
 </body>
 
 </html>
