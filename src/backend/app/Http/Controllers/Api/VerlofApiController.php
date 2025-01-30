@@ -87,32 +87,35 @@ public function show(string $id)
     }
 
 
+    public function updateview($id)
+    {
+        $verlofAanvragen = Verlof::findOrFail($id);
+        return view('verlof.verlofupdaten', compact('verlofAanvragen'));
+    }    
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $verlof = Verlof::findOrFail($id);
-
-        $validatedFields = $request->validate([
-            //'user_id' => 'required|exists:users,id',
-            'user_id' => 'required|exists:users,id',
-            'begin_tijd' => 'required|date_format:H:i',
-            'begin_datum' => 'required|date|date_format:Y-m-d|after_or_equal:today',
-            'eind_tijd' => 'required|date_format:H:i',
-            'eind_datum' => 'required|date|date_format:Y-m-d|after_or_equal:begin_datum',
-            'reden' => 'required',
-            'status' => 'required'
+        
+        $request->validate([
+            'begin_tijd' => 'required',
+            'begin_datum' => 'required|date',
+            'eind_tijd' => 'required',
+            'eind_datum' => 'required|date|after_or_equal:begin_datum',
+            'reden' => 'required|string',
         ]);
-
-        $verlof->update($validatedFields);
-
-        return response()->json([
-            'message' => 'Verlof successvol geupdate!',
-            'verlof' => $verlof
+    
+        $verlof->update([
+            'begin_tijd' => $request->begin_tijd,
+            'begin_datum' => $request->begin_datum,
+            'eind_tijd' => $request->eind_tijd,
+            'eind_datum' => $request->eind_datum,
+            'reden' => $request->reden,
         ]);
+    
+        return redirect()->route('verlofOverzicht')->with('success', 'Verlof succesvol bijgewerkt.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

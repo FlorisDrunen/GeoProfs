@@ -26,6 +26,9 @@
         @method('PATCH')
         <button type="submit" class="btn btn-warning">Afwijzen</button>
     </form>
+    <a href="{{ route('verlofUpdaten', $verlofAanvragen->id) }}" class="btn btn-info">Bewerken</a>
+
+
 
     <table class="table">
         <thead>

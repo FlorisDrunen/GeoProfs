@@ -26,5 +26,6 @@ Route::patch('/verlof/{id}/approve', [VerlofApiController::class, 'approve'])->n
 Route::patch('/verlof/{id}/deny', [VerlofApiController::class, 'deny'])->name('verlofDeny');
 
 
-Route::put('/verlof-update/{id}', [VerlofApiController::class, 'update']);
+Route::get('/verlof-update/{id}', [VerlofApiController::class, 'updateview'])->name('verlofUpdaten');
+Route::put('/verlof-update-func/{id}', [VerlofApiController::class, 'update'])->name('verlofUpdatenFunc');
 Route::delete('/verlof-delete/{id}', [VerlofApiController::class, 'destroy'])->name('verlofVerwijderen');
