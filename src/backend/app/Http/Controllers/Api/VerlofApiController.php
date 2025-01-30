@@ -68,6 +68,25 @@ public function show(string $id)
 
 }
 
+    public function approve($id)
+    {
+        $verlof = Verlof::findOrFail($id);
+        $verlof->status = 'approved';
+        $verlof->save();
+
+        return redirect()->back()->with('success', 'Verlof is goedgekeurd.');
+    }
+
+    public function deny($id)
+    {
+        $verlof = Verlof::findOrFail($id);
+        $verlof->status = 'denied';
+        $verlof->save();
+
+        return redirect()->back()->with('success', 'Verlof is afgewezen.');
+    }
+
+
 
     /**
      * Update the specified resource in storage.

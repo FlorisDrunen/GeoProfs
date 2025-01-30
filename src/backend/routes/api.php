@@ -21,5 +21,10 @@ Route::get('/verlof-aanvraag', [VerlofApiController::class, 'create'])->name('ve
 Route::post('/verlof-nieuw', [VerlofApiController::class, 'store'])->name('verlofNieuw');
 
 Route::get('/verlof/{id}', [VerlofApiController::class, 'show'])->name('enkelVerlof');
+
+Route::patch('/verlof/{id}/approve', [VerlofApiController::class, 'approve'])->name('verlofApprove');
+Route::patch('/verlof/{id}/deny', [VerlofApiController::class, 'deny'])->name('verlofDeny');
+
+
 Route::put('/verlof-update/{id}', [VerlofApiController::class, 'update']);
 Route::delete('/verlof-delete/{id}', [VerlofApiController::class, 'destroy'])->name('verlofVerwijderen');
