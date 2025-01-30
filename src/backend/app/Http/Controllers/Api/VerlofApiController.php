@@ -10,17 +10,29 @@ class VerlofApiController
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $verlofAanvragen = Verlof::with('user')->get();
+    // public function index()
+    // {
+    //     $verlofAanvragen = Verlof::with('user')->get();
 
-        return view('verlof.verlofoverzicht', compact('verlofAanvragen'));
+    //     return view('verlof.verlofoverzicht', compact('verlofAanvragen'));
     
-        // return response()->json([
-        //     "verlofaanvragen" => $verlofAanvragen
-        // ]);
+    //     // return response()->json([
+    //     //     "verlofaanvragen" => $verlofAanvragen
+    //     // ]);
+    // }
+    
+    public function verlofOverzicht(Request $request)
+{
+    $status = $request->input('status', 'pending'); // Standaard filter op 'pending'
+
+    if ($status == 'all') {
+        $verlofAanvragen = Verlof::all();
+    } else {
+        $verlofAanvragen = Verlof::where('status', $status)->get();
     }
-    
+
+    return view('verlof.verlofoverzicht', compact('verlofAanvragen', 'status'));
+}
 
     public function create()
     {

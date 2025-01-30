@@ -9,6 +9,17 @@
 
     <a href="{{ route('verlofAanvraag') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanvragen</a>
 
+    <!-- Filter Form -->
+    <form method="GET" action="{{ route('verlofOverzicht') }}" class="mb-3">
+        <label for="statusFilter">Filter op status:</label>
+        <select name="status" id="statusFilter" class="form-select" onchange="this.form.submit()">
+            <option value="all" {{ $status == 'all' ? 'selected' : '' }}>Alle</option>
+            <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
+            <option value="approved" {{ $status == 'approved' ? 'selected' : '' }}>Approved</option>
+            <option value="denied" {{ $status == 'denied' ? 'selected' : '' }}>Denied</option>
+        </select>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +30,6 @@
                 <th>Eind Datum</th>
                 <th>Reden</th>
                 <th>Status</th>
-
             </tr>
         </thead>
         <tbody>
