@@ -10,10 +10,10 @@
     <form method="POST" action="{{ route(name: 'register') }}">
         @csrf
         <label for="name">First Name:</label>
-        <input type="text" id="name" name="first_name" required>
+        <input type="text" id="first_name" name="first_name" required>
         <br>
         <label for="name">Last Name:</label>
-        <input type="text" id="name" name="last_name" required>
+        <input type="text" id="last_name" name="last_name" required>
         <br>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>

@@ -49,7 +49,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             // Redirect naar dashboard
-            return redirect()->route('dashboard');
+            return view('auth.dashboard');
         }
 
         $user = User::where('email', $request->email)->first();
