@@ -21,7 +21,8 @@ class AuthController extends Controller
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:8'
+            'password' => 'required|confirmed|min:8',
+            'rol' => 'required|in:werknemer,teammanager,officemanager'
         ]);
 
         $user = User::create($validatedFields);
@@ -29,7 +30,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => __('errormessages.auth.register.success'),
-            'user' => $user,
+            'user' => $user,    
             'token' => $token->plainTextToken
         ], 201);
     }

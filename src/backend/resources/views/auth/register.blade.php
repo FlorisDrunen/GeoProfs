@@ -21,6 +21,13 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
         <br>
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol" required>
+        <option value="werknemer">Werknemer</option>
+        <option value="teammanager">Teammanager</option>
+        <option value="officemanager">Officemanager</option>
+        </select>
+        <br>
         <label for="password_confirmation">Confirm Password:</label>
         <input type="password" id="password_confirmation" name="password_confirmation" required>
         <br>

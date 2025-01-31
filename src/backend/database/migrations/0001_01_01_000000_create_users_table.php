@@ -18,6 +18,7 @@ return new class extends Migration
             //$table->integer('leave_balance')->default(0); // Default leave balance
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('rol', ['werknemer', 'teammanager', 'officemanager']);
 //            $table->string('phone_number', 15)->nullable();
 //            $table->foreignId('team_id')
 //                ->nullable()

@@ -34,10 +34,11 @@ class User extends Authenticatable
         //'leave_balance',
         'email',
         'password',
+        'rol',
         //'phone_number',
         //'employee_number'
         //'team_id',
-        //'role_id'
+
     ];
 
     /**
