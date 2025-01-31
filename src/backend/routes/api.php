@@ -4,14 +4,14 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\VerlofApiController;
 use Illuminate\Support\Facades\Route;
 
-// Test route
-Route::get('/', function (){
-    return 'API connected';
-});
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/register', [AuthController::class, 'showRegister']);
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'showLogin']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
+
 
 // Route::apiresource('verlof', VerlofApiController::class);
 
@@ -32,3 +32,13 @@ Route::get('/verlof-update/{id}', [VerlofApiController::class, 'updateview'])->n
 Route::put('/verlof-update-func/{id}', [VerlofApiController::class, 'update'])->name('verlofUpdatenFunc');
 
 Route::delete('/verlof-delete/{id}', [VerlofApiController::class, 'destroy'])->name('verlofVerwijderen');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth')->name('dashboard');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
