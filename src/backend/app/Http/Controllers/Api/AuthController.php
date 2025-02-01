@@ -13,10 +13,17 @@ class AuthController extends Controller
 {
     public function showRegister()
     {
+        if (Auth::user() && Auth::user()->rol !== 'officemanager') {
+            return redirect()->route('dashboard')->withErrors(['error' => 'Je hebt geen toegang tot deze pagina.']);
+        }
         return view('auth.register');
     }
     public function register(Request $request)
     {
+        if (Auth::user() && Auth::user()->rol !== 'officemanager') {
+            return redirect()->route('dashboard')->withErrors(['error' => 'Je hebt geen toegang tot deze actie.']);
+        }
+
         $validatedFields = $request->validate([
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
@@ -33,7 +40,7 @@ class AuthController extends Controller
         //     'user' => $user,    
         //     'token' => $token->plainTextToken
         // ], 201);
-        return redirect()->route('login');
+        return redirect()->route('dashboard');
     }
 
     public function showLogin()

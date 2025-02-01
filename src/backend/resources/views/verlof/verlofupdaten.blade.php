@@ -30,8 +30,8 @@
             <textarea name="reden" id="reden" required>{{ $verlofAanvragen->reden }}</textarea>
         </div>
 
-        <input type="hidden" name="status" value="{{ $verlofAanvragen->status }}">
-
+        <input type="hidden" name="status" id="status" value="pending">
+        
         <button type="submit" class="btn btn-primary">Bijwerken</button>
     </form>
 </div>
