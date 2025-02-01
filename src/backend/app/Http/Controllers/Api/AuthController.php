@@ -28,11 +28,12 @@ class AuthController extends Controller
         $user = User::create($validatedFields);
         $token = $user->createToken($request->first_name);
 
-        return response()->json([
-            'message' => __('errormessages.auth.register.success'),
-            'user' => $user,    
-            'token' => $token->plainTextToken
-        ], 201);
+        // return response()->json([
+        //     'message' => __('errormessages.auth.register.success'),
+        //     'user' => $user,    
+        //     'token' => $token->plainTextToken
+        // ], 201);
+        return redirect()->route('login');
     }
 
     public function showLogin()
@@ -41,48 +42,51 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        
-      
         $request->validate([
-            'email'=>'required|email|exists:users',
-            'password'=>'required'
+            'email' => 'required|email|exists:users',
+            'password' => 'required'
         ]);
+    
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'error' => __('errormessages.auth.login.failed')
+            ], 401);
+        }
 
         if (Auth::attempt($request->only('email', 'password'))) {
             // Redirect naar dashboard
-            return view('auth.dashboard');
+            return redirect()->route('dashboard');
         }
+    
+        $user = Auth::user();
 
-        $user = User::where('email', $request->email)->first();
+        session(['user_id' => $user->id]);
 
-        if(!$user){
-            return response()->json([
-                'error'=>__('errormessages.auth.login.email_not_found'),
-                'provided email'=>$request->email
-            ], 401);
-        }
-
-        if(!Hash::check($request->password, $user->password)){
-            return response()->json([
-                'error'=>__('errormessages.auth.login.password_incorrect')
-            ], 401);
-        }
-
-        $token = $user->createToken($user->first_name);
-
+        $token = $user->createToken('auth_token')->plainTextToken;
+    
         return response()->json([
-            'message'=>__('errormessages.auth.login.success'),
-            'user'=>$user,
-            'token'=>$token->plainTextToken
+            'message' => __('errormessages.auth.login.success'),
+            'user' => $user,
+            'token' => $token,
+            'session_id' => session()->getId() 
         ]);
     }
+    
+    
 
     public function logout(Request $request)
     {
+        session()->invalidate();
+        session()->regenerateToken();
+    
         $request->user()->tokens()->delete();
+    
+        // return response()->json([
+        //     'message' => __('errormessages.auth.logout.success'),
+        // ]);
 
-        return response()->json([
-            'message'=>__('errormessages.auth.logout.success'),
-        ]);
+        return redirect()->route('login');
+
     }
+    
 }
