@@ -1,13 +1,10 @@
 <div class="container">
     <h1>Verlofoverzicht</h1>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
+    @if(Auth::user()->rol === 'werknemer')
     <a href="{{ route('verlofAanvraag') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanvragen</a>
+    @endif
     <a href="{{route('dashboard')}}">dashboard :D</a>
 
     <!-- Filter Form -->

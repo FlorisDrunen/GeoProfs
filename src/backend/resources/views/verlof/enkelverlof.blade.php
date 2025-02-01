@@ -14,20 +14,23 @@
         <a href="{{ route('verlofOverzicht') }}" class="btn btn-primary mb-3">Annuleren</a>
     </form>
 
-    <!-- Knoppen voor status update -->
-    <form action="{{ route('verlofApprove', $verlofAanvragen->id) }}" method="POST" style="display:inline;">
-        @csrf
-        @method('PATCH')
-        <button type="submit" class="btn btn-success">Goedkeuren</button>
-    </form>
-
+    @if(Auth::user()->rol === 'officemanager' || Auth::user()->rol === 'teammanager')
+        <form action="{{ route('verlofApprove', $verlofAanvragen->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="btn btn-success">Goedkeuren</button>
+        </form>
+ 
     <form action="{{ route('verlofDeny', $verlofAanvragen->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('PATCH')
         <button type="submit" class="btn btn-warning">Afwijzen</button>
     </form>
-    <a href="{{ route('verlofUpdaten', $verlofAanvragen->id) }}" class="btn btn-info">Bewerken</a>
+    @endif
 
+    @if(Auth::user()->rol === 'werknemer')
+    <a href="{{ route('verlofUpdaten', $verlofAanvragen->id) }}" class="btn btn-info">Bewerken</a>
+    @endif
 
 
     <table class="table">

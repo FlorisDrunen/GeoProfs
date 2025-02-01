@@ -21,23 +21,29 @@ class VerlofApiController
     //     // ]);
     // }
     
-    public function verlofOverzicht(Request $request)
+public function verlofOverzicht(Request $request)
 {
     $status = $request->input('status', 'pending'); // Standaard filter op 'pending'
+    $user = auth()->user(); // Haal de ingelogde gebruiker op
 
-    if ($status == 'all') {
-        $verlofAanvragen = Verlof::all();
+    // Controleer de rol en pas de query aan
+    if ($user->rol === 'teammanager' || $user->rol === 'officemanager' ) {
+        // Teammanagers zien alle aanvragen
+        $verlofAanvragen = ($status == 'all') ? Verlof::all() : Verlof::where('status', $status)->get();
     } else {
-        $verlofAanvragen = Verlof::where('status', $status)->get();
+        // Werknemers zien alleen hun eigen aanvragen
+        $verlofAanvragen = ($status == 'all') 
+            ? Verlof::where('user_id', $user->id)->get()
+            : Verlof::where('user_id', $user->id)->where('status', $status)->get();
     }
 
     return view('verlof.verlofoverzicht', compact('verlofAanvragen', 'status'));
 }
 
-    public function create()
-    {
-        return view('verlof.verlofaanvraag'); 
-    }
+public function create()
+{
+    return view('verlof.verlofaanvraag'); 
+}
     
 
     /**
@@ -71,13 +77,13 @@ class VerlofApiController
 public function show(string $id)
 {
     $verlofAanvragen = Verlof::with('user')->findOrFail($id);
+    $user = auth()->user(); 
 
-    if (!$verlofAanvragen) {
-        return redirect()->route('verlofOverzicht')->with('error', 'Verlofaanvraag niet gevonden.');
-    }else{
+    if ($verlofAanvragen->user_id === $user->id || $user->rol === 'teammanager' || $user->rol === 'officemanager') {
+        
         return view('verlof.enkelVerlof', compact('verlofAanvragen'));
     }
-
+    return redirect()->route('verlofOverzicht')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
 }
 
     public function approve($id)
@@ -102,9 +108,15 @@ public function show(string $id)
     public function updateview($id)
     {
         $verlofAanvragen = Verlof::findOrFail($id);
+        $user = auth()->user(); 
+    
+        if ($verlofAanvragen->user_id !== $user->id) {
+            return redirect()->route('verlofOverzicht')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
+        }
+    
         return view('verlof.verlofupdaten', compact('verlofAanvragen'));
-    }    
-
+    }
+    
     public function update(Request $request, $id)
     {
         $verlof = Verlof::findOrFail($id);
@@ -115,6 +127,7 @@ public function show(string $id)
             'eind_tijd' => 'required',
             'eind_datum' => 'required|date|after_or_equal:begin_datum',
             'reden' => 'required|string',
+            'status' => 'required'
         ]);
     
         $verlof->update([
@@ -123,6 +136,7 @@ public function show(string $id)
             'eind_tijd' => $request->eind_tijd,
             'eind_datum' => $request->eind_datum,
             'reden' => $request->reden,
+            'status' => $request->status
         ]);
     
         return redirect()->route('verlofOverzicht')->with('success', 'Verlof succesvol bijgewerkt.');

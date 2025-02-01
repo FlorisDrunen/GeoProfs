@@ -31,8 +31,8 @@
             <div>
                 <input type="hidden" name="status" id="status" value="pending">
             </div>
-            <input type="hidden" name="user_id" value="1"> 
-            <!-- Moet nog flexibel worden -->
+            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
 
 
 
