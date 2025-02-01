@@ -1,53 +1,93 @@
-<div class="container">
-    <h1>Verlofoverzicht</h1>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-header">
+        <h1 class="dashboard-header-text">Welcome, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+    </div>
+    <div class="dashboard-form">
 
-    @if(Auth::user()->rol === 'werknemer')
-    <a href="{{ route('verlofAanvraag') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanvragen</a>
-    @endif
-    <a href="{{route('dashboard')}}">dashboard :D</a>
+        @csrf
+        @if(Auth::user()->rol === 'officemanager')
+        <a class="dashboard-button-register" href="{{ route('register') }}">Register</a>
+        @endif
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="dashboard-button" type="submit">Logout</button>
+        </form>
 
-    <!-- Filter Form -->
-    <form method="GET" action="{{ route('verlofOverzicht') }}" class="mb-3">
-        <label for="statusFilter">Filter op status:</label>
-        <select name="status" id="statusFilter" class="form-select" onchange="this.form.submit()">
-            <option value="all" {{ $status == 'all' ? 'selected' : '' }}>Alle</option>
-            <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
-            <option value="approved" {{ $status == 'approved' ? 'selected' : '' }}>Approved</option>
-            <option value="denied" {{ $status == 'denied' ? 'selected' : '' }}>Denied</option>
-        </select>
-    </form>
+    </div>
+    <div class="dashboard-nav-container">
+        <ul class="dashboard-nav-list">
+            <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
+            <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
+        </ul>
+    </div>
+    <div class="dashboard-info">
+        <div class="verlof-container">
+            <div class="verlof-slot">
+                <h1>Verlofoverzicht</h1>
+    
+                @if(Auth::user()->rol === 'werknemer')
+                <a  href="{{ route('verlofAanvraag') }}"><button class="dashboard-button"> Nieuw Verlof Aanvragen </button></a>
+                @endif
+                <a href="{{route('dashboard')}}">dashboard :D</a>
+    
+                <!-- Filter Form -->
+                <form method="GET" action="{{ route('verlofOverzicht') }}" class="mb-3">
+                    <label for="statusFilter">Filter op status:</label>
+                    <select name="status" id="statusFilter" class="form-select" onchange="this.form.submit()">
+                        <option value="all" {{ $status == 'all' ? 'selected' : '' }}>Alle</option>
+                        <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="approved" {{ $status == 'approved' ? 'selected' : '' }}>Approved</option>
+                        <option value="denied" {{ $status == 'denied' ? 'selected' : '' }}>Denied</option>
+                    </select>
+                </form>
+    
+                <!-- <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Begin Tijd</th>
+                            <th>Begin Datum</th>
+                            <th>Eind Tijd</th>
+                            <th>Eind Datum</th>
+                            <th>Reden</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead> -->
+                    <!-- <tbody> -->
+                        <div class="table-holder">                            
+                            @foreach($verlofAanvragen as $item)
+                                <div class="verlof-table" onclick="navigateToVerlof({{ $item->id }})" style="cursor: pointer;">
+    
+                                    <div class="verlof-table-block">
+                                        <div class="verlof-table-item"><h4>Aangevraagd door</h4> <p>{{ $item->user->first_name }} {{ $item->user->last_name }}</p> </div>
+                                        <div class="verlof-table-item"><h4>Begin tijd</h4> <p>{{ $item->begin_tijd }}</p> </div>
+                                        <div class="verlof-table-item"><h4>Begin datum</h4> <p>{{ $item->begin_datum }}</p> </div>
+                                        <div class="verlof-table-item"><h4>Eind tijd</h4> <p>{{ $item->eind_tijd }}</p> </div>
+                                        <div class="verlof-table-item"><h4>Eind datum</h4> <p>{{ $item->eind_datum }}</p> </div>
+                                        <div class="verlof-table-item"><h4>Reden</h4> <p>{{ $item->reden }}</p> </div>
+                                        <div class="verlof-table-item"><h4>Status</h4> <p>{{ $item->status }}</p> </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    <!-- </tbody> -->
+                <!-- </table> -->
+            </div>
+        </div>
+    </div>
+</body>
+  
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Begin Tijd</th>
-                <th>Begin Datum</th>
-                <th>Eind Tijd</th>
-                <th>Eind Datum</th>
-                <th>Reden</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($verlofAanvragen as $item)
-                <tr onclick="navigateToVerlof({{ $item->id }})" style="cursor: pointer;">
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->begin_tijd }}</td>
-                    <td>{{ $item->begin_datum }}</td>
-                    <td>{{ $item->eind_tijd }}</td>
-                    <td>{{ $item->eind_datum }}</td>
-                    <td>{{ $item->reden }}</td>
-                    <td>{{ $item->status }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
-
-<script>
-    function navigateToVerlof(id) {
-        window.location.href = "{{ url('api/verlof') }}/" + id;
-    }
-</script>
+    <script>
+        function navigateToVerlof(id) {
+            window.location.href = "{{ url('api/verlof') }}/" + id;
+        }
+    </script>
+</html>

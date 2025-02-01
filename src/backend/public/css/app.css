@@ -215,11 +215,7 @@
     padding-left: 8%;
    
 }
-.dashboard-info{
-    grid-area: info;
-    max-width: 12%;
-    display: block;
-}
+
 .dashboard-nav-list {
     list-style: none;
     padding: 0;
@@ -253,4 +249,59 @@
     max-height: fit-content;
     margin: 5%;
     padding: 2%;
+}
+
+.dashboard-info{
+    grid-area: info;
+    max-width: 100%;
+    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #e9eaeb;
+}
+
+
+.verlof-container{
+    margin-top: 50px;
+}
+.verlof-slot{
+    /* background-color: #ff1e3c; */
+}
+
+.table-holder{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;    
+}
+
+.verlof-table-item{
+    padding: 15px;
+    min-width: 150px;
+    max-width: 200px;
+    justify-items: center;
+}
+.verlof-table-item p{
+    color: #00547b;
+}
+
+.verlof-table-block{
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.accept {
+    background-color: #5C946E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.accept:hover {
+    background-color: #528562;
 }

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+
 <div class="container">
         <h1>Nieuw Verlof Aanmaken</h1>
 
@@ -39,3 +47,4 @@
             <button type="submit" class="btn btn-primary">Aanvragen</button>
         </form>
     </div>
+</html>

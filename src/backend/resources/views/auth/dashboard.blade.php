@@ -14,7 +14,7 @@
 
         @csrf
         @if(Auth::user()->rol === 'officemanager')
-        <a class="dashboard-button-register" href="{{ route('register') }}">Register</a>
+        <a class="dashboard-button" href="{{ route('register') }}">Register</a>
         @endif
         <form method="POST" action="{{ route('logout') }}">
             @csrf
