@@ -143,6 +143,7 @@
     background-color: rgb(0, 84, 123);
     padding-right: 12%;
     grid-template-areas: form;
+
 }
 
 .dashboard-button {
@@ -153,7 +154,40 @@
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-
+    margin-left: 10px;
+}
+.dashboard-button-register {
+    background-color: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+.dashboard-button-register :hover {
+    background-color: #ff1e3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+.dashboard-button-register :visited {
+    background-color: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    text-decoration: none;
 }
 
 .dashboard-button:hover {

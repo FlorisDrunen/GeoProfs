@@ -11,10 +11,16 @@
         <h1 class="dashboard-header-text">Welcome, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
     </div>
     <div class="dashboard-form">
+
+        @csrf
+        @if(Auth::user()->rol === 'officemanager')
+        <a class="dashboard-button-register" href="{{ route('register') }}">Register</a>
+        @endif
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="dashboard-button" type="submit">Logout</button>
         </form>
+
     </div>
     <div class="dashboard-nav-container">
         <ul class="dashboard-nav-list">
