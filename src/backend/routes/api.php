@@ -2,12 +2,22 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\VerlofApiController;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+
+Route::middleware([
+    'web', 
+    StartSession::class,
+])->group(function () {
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/register', [AuthController::class, 'showRegister']);
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
+
 Route::get('/login', [AuthController::class, 'showLogin']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
@@ -35,10 +45,11 @@ Route::delete('/verlof-delete/{id}', [VerlofApiController::class, 'destroy'])->n
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('auth.dashboard');
 })->middleware('auth')->name('dashboard');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+});
