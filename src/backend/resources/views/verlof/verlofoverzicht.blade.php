@@ -8,6 +8,7 @@
     @endif
 
     <a href="{{ route('verlofAanvraag') }}" class="btn btn-primary mb-3">Nieuw Verlof Aanvragen</a>
+    <a href="{{route('dashboard')}}">dashboard :D</a>
 
     <!-- Filter Form -->
     <form method="GET" action="{{ route('verlofOverzicht') }}" class="mb-3">

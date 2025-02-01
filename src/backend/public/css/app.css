@@ -183,4 +183,40 @@
 }
 .dashboard-info{
     grid-area: info;
+    max-width: 12%;
+    display: block;
+}
+.dashboard-nav-list {
+    list-style: none;
+    padding: 0;
+}
+
+.dashboard-nav-list li {
+    margin-bottom: 10px;
+}
+.dashboard-nav-link{
+    display: block;
+    text-decoration: none;
+    color: #f4f4f9;
+    font-size: large;
+    font-weight: bold;
+    border-style: solid;
+    border-radius: 12px;
+    width: max-content;
+    height: max-content;
+    margin: 5%;
+    padding: 5%;
+}
+.dashboard-nav-link :visited{
+    display: block;
+    text-decoration: none;
+    color: #f4f4f9;
+    font-size: large;
+    font-weight: bold;
+    border-style: solid;
+    border-radius: 12px;
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: 5%;
+    padding: 2%;
 }

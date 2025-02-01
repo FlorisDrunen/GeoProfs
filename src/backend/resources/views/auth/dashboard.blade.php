@@ -17,12 +17,10 @@
         </form>
     </div>
     <div class="dashboard-nav-container">
-        <p>a</p>
-        <p>b</p>
-        <p>c</p>
-        <p>d</p>
-        <p>e</p>
-        <p>f</p>
+        <ul class="dashboard-nav-list">
+            <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
+            <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
+        </ul>
     </div>
     <div class="dashboard-info">
 
