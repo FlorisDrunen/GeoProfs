@@ -29,7 +29,7 @@ class AuthController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
-            'rol' => 'required|in:werknemer,teammanager,officemanager'
+            'rol' => 'required|in:werknemer,teammanager'
         ]);
 
         $user = User::create($validatedFields);

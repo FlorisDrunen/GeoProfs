@@ -31,7 +31,11 @@
         </ul>
     </div>
     <div class="dashboard-info">
-
+        <div class="verlof-container">
+            <div class="verlof-slot">
+                <h1>Welkom bij Geoprofs</h1>
+            </div>
+        </div>
     </div>
 </body>
 

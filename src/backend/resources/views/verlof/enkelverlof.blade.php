@@ -38,13 +38,13 @@
                 <form action="{{ route('verlofVerwijderen', $verlofAanvragen->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="grey-button">Verwijderen</button>
                     <a href="{{ route('verlofOverzicht') }}" class="grey-button">Annuleren</a>
+                    @if(Auth::user()->rol === 'werknemer')
+                    <a class="grey-button" href="{{ route('verlofUpdaten', $verlofAanvragen->id) }}" class="btn btn-info">Bewerken</a>
+                    @endif
+                    <button type="submit" class="dashboard-button">Verwijderen</button>
                 </form>
 
-                @if(Auth::user()->rol === 'werknemer')
-                <a class="grey-button" href="{{ route('verlofUpdaten', $verlofAanvragen->id) }}" class="btn btn-info">Bewerken</a>
-                @endif
 
                 <div class="table-holder">
                     <div class="verlof-table">
@@ -95,28 +95,6 @@
                 @endif
             </div>
         </div>
-        <!-- <table class="table">
-                <thead>
-                    <tr>
-                        <th>Begin Tijd</th>
-                        <th>Begin Datum</th>
-                        <th>Eind Tijd</th>
-                        <th>Eind Datum</th>
-                        <th>Reden</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ $verlofAanvragen->begin_tijd }}</td>
-                        <td>{{ $verlofAanvragen->begin_datum }}</td>
-                        <td>{{ $verlofAanvragen->eind_tijd }}</td>
-                        <td>{{ $verlofAanvragen->eind_datum }}</td>
-                        <td>{{ $verlofAanvragen->reden }}</td>
-                        <td>{{ $verlofAanvragen->status }}</td>
-                    </tr>
-                </tbody>
-            </table> -->
     </div>
 </body>
 
