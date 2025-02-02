@@ -33,11 +33,11 @@
         <div class="verlof-container">
             <div class="verlof-slot">
                 <h1>Verlofoverzicht</h1>
-    
+                <a class="grey-button" href="{{route('dashboard')}}">Dashboard</a>
                 @if(Auth::user()->rol === 'werknemer')
                 <a  href="{{ route('verlofAanvraag') }}"><button class="grey-button"> Nieuw Verlof Aanvragen </button></a>
                 @endif
-                <a href="{{route('dashboard')}}">dashboard :D</a>
+              
     
                 <!-- Filter Form -->
                 <form method="GET" action="{{ route('verlofOverzicht') }}" class="mb-3">
