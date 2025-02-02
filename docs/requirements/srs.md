@@ -17,13 +17,23 @@ Briefly define the scope of the software, including what the software will do an
 ## 2. Overall Description
 
 ### 2.1 Product Perspective
-Explain how the software fits within a larger system or context, if applicable. This may include a system interface diagram or descriptions of interactions with other systems.
+GeoProfs is a surveying agency. The company was founded 15 years ago by current director Johan de Lange. In those years, the company has built up a good reputation in the construction, infrastructure sector and industry. The company is known for being fast, innovative and very reliable.
+After studying Surveying, Johan de Lange started as an independent professional. It soon became clear that the demand for specialists in the field of surveying and Geo ICT is high. Johan decided to hire staff to meet the demand and to adapt to the digitalization of the field. Soon fifteen people were employed.
+In addition to specialists in the field of surveying, ICT specialists in the field of Geo ICT, drones, digital image processing and 3D scanning were also employed. GeoProfs now employs eighty employees.
+For now they use an Excel sheet to keep track of people's leave, but they want to change that because it quickly becomes confusing when eighty people are employed, so they asked us to come up with and create a solution.
 
 ### 2.2 Product Functions
-Summarize the major functions that the software will perform. Each function should be briefly described to provide a high-level understanding of the software.
+Users will be able to log into our system using an account made for them by the company. They will be able to request different kinds of leave and absence types, which
+will be approved or rejected by their managers. The system will allow for the outlining of a generic company hierarchy,
+with office management creating the different projects, and managers managing the different teams within these projects.
+Project managers manage the requests of their respective team members, and office managers manage the project managers.
 
 ### 2.3 User Classes and Characteristics
-Describe the different types of users who will interact with the software and their respective characteristics.
+Employees: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Employees must be able to view their team's absence schedule. Eployees have a set amount of off days, they must be able to see how many they have left.
+
+Team managers: Can request leave and sick days and a reason can be written for the request. They must be able to see if their application is approved or rejected. The duration of the leave days must also be indicated and may not exceed the leave balance. Team managers must be able to view their team's absence schedule. Team managers can approve or reject leave days of eployees. Team managers have a set amount of off days, they must be able to see how many they have left.
+
+Office managers: Can approve or reject team managers leave requests. Must be able to create accounts for employees and team managers. Office managers must be able to view the entire leave schedule. Office managers should receive notifications when there is a request. Office managers should be able to act as a team manager incase of an emergancy.
 
 ### 2.4 Operating Environment
 Define the environment under which the software will operate, including hardware, operating systems, and other required software.
