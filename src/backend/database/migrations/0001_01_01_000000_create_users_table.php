@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // Primary key
             $table->string('first_name', 255); // Default length is 255
             $table->string('last_name', 255);
-            //$table->integer('leave_balance')->default(0); // Default leave balance
+            // $table->integer('verlof_saldo')->default(160);
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('rol', ['werknemer', 'teammanager', 'officemanager']);

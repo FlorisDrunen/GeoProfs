@@ -10,6 +10,9 @@ migrate:
 migrate-test:
 	cd ./src/backend && docker-compose exec backend php artisan migrate --env=testing
 
+seed:
+	cd ./src/backend && docker compose exec backend php artisan db:seed --class=OfficemanagerSeeder
+
 
 # Run tests
 test:
