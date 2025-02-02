@@ -25,7 +25,9 @@
     <div class="dashboard-nav-container">
         <ul class="dashboard-nav-list">
             <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
+            @if(Auth::user()->rol === 'werknemer')
             <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
+            @endif
         </ul>
     </div>
     <div class="dashboard-info">

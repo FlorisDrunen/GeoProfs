@@ -24,7 +24,9 @@
         <div class="dashboard-nav-container">
             <ul class="dashboard-nav-list">
                 <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
-                <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
+                @if(Auth::user()->rol === 'werknemer')
+            <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
+            @endif
             </ul>
         </div>
         <div class="dashboard-info">
@@ -35,8 +37,8 @@
                     <form action="{{ route('verlofVerwijderen', $verlofAanvragen->id) }}" method="POST">
                         @csrf
                         @method('DELETE') 
-                        <button type="submit" class="btn btn-danger">Verwijderen</button>
-                        <a href="{{ route('verlofOverzicht') }}" class="btn btn-primary mb-3">Annuleren</a>
+                        <button type="submit" class="grey-button">Verwijderen</button>
+                        <a href="{{ route('verlofOverzicht') }}" class="grey-button">Annuleren</a>
                     </form>
 
 

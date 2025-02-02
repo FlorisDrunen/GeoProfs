@@ -42,7 +42,12 @@ public function verlofOverzicht(Request $request)
 
 public function create()
 {
+    $user = auth()->user();
+    if ($user->rol === 'werknemer') {
     return view('verlof.verlofaanvraag'); 
+    }else{
+        return redirect()->route('dashboard')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
+    }
 }
     
 

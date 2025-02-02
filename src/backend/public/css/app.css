@@ -305,3 +305,19 @@
 .accept:hover {
     background-color: #528562;
 }
+
+.grey-button{
+    background-color: #0070a4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.grey-button:hover {
+    background-color: #00547b;
+}

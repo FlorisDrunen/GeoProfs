@@ -24,7 +24,9 @@
     <div class="dashboard-nav-container">
         <ul class="dashboard-nav-list">
             <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
+            @if(Auth::user()->rol === 'werknemer')
             <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
+            @endif
         </ul>
     </div>
     <div class="dashboard-info">
@@ -33,7 +35,7 @@
                 <h1>Verlofoverzicht</h1>
     
                 @if(Auth::user()->rol === 'werknemer')
-                <a  href="{{ route('verlofAanvraag') }}"><button class="dashboard-button"> Nieuw Verlof Aanvragen </button></a>
+                <a  href="{{ route('verlofAanvraag') }}"><button class="grey-button"> Nieuw Verlof Aanvragen </button></a>
                 @endif
                 <a href="{{route('dashboard')}}">dashboard :D</a>
     
@@ -47,20 +49,6 @@
                         <option value="denied" {{ $status == 'denied' ? 'selected' : '' }}>Denied</option>
                     </select>
                 </form>
-    
-                <!-- <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Begin Tijd</th>
-                            <th>Begin Datum</th>
-                            <th>Eind Tijd</th>
-                            <th>Eind Datum</th>
-                            <th>Reden</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead> -->
-                    <!-- <tbody> -->
                         <div class="table-holder">                            
                             @foreach($verlofAanvragen as $item)
                                 <div class="verlof-table" onclick="navigateToVerlof({{ $item->id }})" style="cursor: pointer;">
