@@ -68,7 +68,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         session(['user_id' => $user->id]);
-        //known error but it dont do shit
+ 
         $token = $user->createToken('auth_token')->plainTextToken;
     
         return response()->json([

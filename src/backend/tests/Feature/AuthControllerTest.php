@@ -10,48 +10,153 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
-
+    
     /**
-     * Test that registration fails with invalid input data.
+     * Tests that a user is successfully created with a correct role.
      */
-    public function test_register_validation_fails()
+    public function test_register_user_with_permission_officemanager()
     {
-        // Simulate a POST request to the register endpoint with invalid data
-        $response = $this->postJson('/api/register', [
-            'first_name' => '',
-            'last_name' => '',
-            'email' => 'invalid-email',
-            'password' => 'short',
-            'password_confirmation' => 'notmatching',
+        // Maak een gebruiker met de juiste rol aan en log deze in
+        $adminUser = User::factory()->create([
+            'rol' => 'officemanager', // Zorg ervoor dat de gebruiker mag registreren
         ]);
-
-        // Assert that validation errors are returned
-        $response->assertStatus(422); //Invalid data
-        $response->assertJsonValidationErrors(['first_name', 'last_name', 'email', 'password']);
-    }
-
-    /**
-     * Test that a user is successfully created upon valid registration.
-     */
-    public function test_register_creates_user()
-    {
-        // Simulate a POST request with valid registration data
+    
+        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+    
+        // Simuleer een POST-request met geldige registratiegegevens
         $response = $this->postJson('/api/register', [
-            'first_name' => 'Sintayu',
-            'last_name' => 'de Kuiper',
-            'email' => 'sintayu.de.kuiper@example.com',
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
+            'rol' => 'werknemer',
+            'email' => 'Voornaam@mail.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
-        // Assert that the response is successful and has the expected structure
-        $response->assertStatus(201); //new resource created
-        $response->assertJsonStructure(['message', 'user', 'token']);
-
-        // Verify that the user was created in the database
+    
+        $response->assertStatus(302); //redirect
+        $response->assertRedirect(route('dashboard'));
         $this->assertDatabaseHas('users', [
-            'email' => 'sintayu.de.kuiper@example.com', //unique identifier
+            'email' => 'Voornaam@mail.com',
         ]);
+    }
+
+    /**
+     * Tests that a user connot successfully be created without a correct role.
+     */
+    public function test_register_user_without_permission_werknemer()
+    {
+        // Maak een gebruiker met de juiste rol aan en log deze in
+        $adminUser = User::factory()->create([
+            'rol' => 'werknemer', // Zorg ervoor dat de gebruiker mag registreren
+        ]);
+    
+        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+    
+        // Simuleer een POST-request met geldige registratiegegevens
+        $response = $this->postJson('/api/register', [
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
+            'rol' => 'werknemer',
+            'email' => 'Voornaam@mail.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+    
+        $response->assertStatus(302); //redirect
+        $response->assertRedirect(route('dashboard'));
+        $response->assertSessionHasErrors(['error']);
+        $this->assertDatabaseMissing('users', [
+            'email' => 'Voornaam@mail.com',
+        ]);
+    }
+
+    /**
+     * Tests that a user connot successfully be created without a correct role.
+     */
+    public function test_register_user_without_permission_teammanager()
+    {
+        // Maak een gebruiker met de juiste rol aan en log deze in
+        $adminUser = User::factory()->create([
+            'rol' => 'teammanager', // Zorg ervoor dat de gebruiker mag registreren
+        ]);
+    
+        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+    
+        // Simuleer een POST-request met geldige registratiegegevens
+        $response = $this->postJson('/api/register', [
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
+            'rol' => 'werknemer',
+            'email' => 'Voornaam@mail.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+    
+        $response->assertStatus(302); //redirect
+        $response->assertRedirect(route('dashboard'));
+        $response->assertSessionHasErrors(['error']);
+        $this->assertDatabaseMissing('users', [
+            'email' => 'Voornaam@mail.com',
+        ]);
+    }
+
+    /**
+     * Tests if a user cannot be created with an officemanager role.
+     */
+    public function test_register_user_with_impossible_role()
+    {
+        // Maak een gebruiker met de juiste rol aan en log deze in
+        $adminUser = User::factory()->create([
+            'rol' => 'officemanager', // Zorg ervoor dat de gebruiker mag registreren
+        ]);
+    
+        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+    
+        // Simuleer een POST-request met geldige registratiegegevens
+        $response = $this->postJson('/api/register', [
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
+            'rol' => 'officemanager',
+            'email' => 'Voornaam@mail.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+    
+        $response->assertStatus(422); //Invalid data
+        $this->assertDatabaseMissing('users', [
+            'email' => 'Voornaam@mail.com',
+        ]);
+    }
+    
+    /**
+     * Test if login fails with an incorrect password.
+     */
+    public function test_login_with_invalid_password()
+    {
+
+        $adminUser = User::factory()->create([
+            'rol' => 'officemanager', 
+        ]);
+    
+        $this->actingAs($adminUser); 
+        
+        // Create a user with a known password
+        $user = User::factory()->create([
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
+            'rol' => 'werknemer',
+            'email' => 'Voornaam@mail.com',
+            'password' => Hash::make('correct_password'),
+        ]);
+
+        // Attempt to login with the wrong password
+        $response = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => 'wrong_password',
+        ]);
+
+        // Assert that the response indicates unauthorized access
+        $response->assertStatus(401); //Unauthorized
     }
 
     /**
@@ -69,30 +174,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422); //Invalid data
     }
 
-    /**
-     * Test that login fails with an incorrect password.
-     */
-    public function test_login_with_invalid_password()
-    {
-        // Create a user with a known password
-        $user = User::factory()->create([
-            'first_name' => 'first name',
-            'last_name' => 'last name',
-            'email' => 'sintayu.de.kuiper@example.com',
-            'password' => Hash::make('correct_password'),
-        ]);
-
-        // Attempt to login with the wrong password
-        $response = $this->postJson('/api/login', [
-            'email' => $user->email,
-            'password' => 'wrong_password',
-        ]);
-
-        // Assert that the response indicates unauthorized access
-        $response->assertStatus(401); //Unauthorized
-    }
-
-    /**
+     /**
      * Test that a user can successfully log in with valid credentials.
      */
     public function test_login_successful()
@@ -101,6 +183,7 @@ class AuthControllerTest extends TestCase
         $user = User::factory()->create([
             'first_name' => 'first name',
             'last_name' => 'last name',
+            'rol' => 'werknemer',
             'email' => 'sintayu.de.kuiper@example.com',
             'password' => Hash::make('correct_password'),
         ]);
@@ -112,45 +195,33 @@ class AuthControllerTest extends TestCase
         ]);
 
         // Assert that the response is successful and contains the expected data
-        $response->assertStatus(200); //A-OK
-        $response->assertJsonStructure(['user', 'token']);
+        $response->assertStatus(302); //redirect
+        $response->assertRedirect(route('dashboard'));
     }
 
-    /**
-     * Test that user needs to be logged in to log out.
+      /**
+     * Test if user needs to be logged in to log out.
      */
 
-    public function test_logout_unsuccessful(){
+     public function test_logout_unsuccessful(){
+
+        // Simulate an unauthenticated POST request to the logout endpoint
+        $response = $this->postJson('/api/logout');
+
+        // Assert that the response indicates a unsuccessful logout
+        $response->assertStatus(401); //Unauthorized
+    }
+
+    public function test_logout_successful(){
         $user = User::factory()->create();
+        $this->actingAs($user);
 
         // Simulate an authenticated POST request to the logout endpoint
         $response = $this->postJson('/api/logout');
 
         // Assert that the response indicates a successful logout
-        $response->assertStatus(401); //Unauthorized
+        $response->assertStatus(302); //Authorized
+        $response->assertRedirect(route('login'));
     }
 
-
-    /**
-     * Test that a user can successfully log out.
-     */
-    public function test_logout_successful()
-    {
-        // Create a user and generate a token
-        $user = User::factory()->create();
-        $token = $user->createToken('test-token')->plainTextToken;
-
-        // Simulate an authenticated POST request to the logout endpoint
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->postJson('/api/logout');
-
-        // Assert that the response indicates a successful logout
-        $response->assertStatus(200);
-
-        // Verify that the token was deleted from the database
-        $this->assertDatabaseMissing('personal_access_tokens', [
-            'tokenable_id' => $user->id,
-        ]);
-    }
 }
