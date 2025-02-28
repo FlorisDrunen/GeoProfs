@@ -1,0 +1,66 @@
+describe('Verlof tests', () => {
+    it('Request verlof', () => {
+        cy.visit('/api/login');
+    
+        cy.get('input[name="email"]').type('Testmail@mail.com');
+        cy.get('input[name="password"]').type('12345678');
+    
+        cy.get('button[type="submit"]').click();
+    
+        cy.url().should('eq', 'http://localhost:8080/api/dashboard');
+
+        cy.get('a.dashboard-nav-link').contains('verlof aanvragen').click();
+
+        cy.url().should('include', '/api/verlof-aanvraag');
+
+        cy.get('input[name="begin_tijd"]').type('09:00'); 
+        cy.get('input[name="begin_datum"]').type('2025-03-11'); 
+        cy.get('input[name="eind_tijd"]').type('17:00'); 
+        cy.get('input[name="eind_datum"]').type('2025-03-20'); 
+        cy.get('textarea[name="reden"]').type('Vakantie'); 
+        cy.get('input[name="status"]').should('have.value', 'pending'); 
+
+        cy.contains('button', 'Aanvragen').click();
+
+        cy.url().should('include', '/api/verlof-overzicht'); 
+
+        cy.contains('Vakantie').should('exist');
+      });
+
+      it('Edit verlof', () => {
+        cy.visit('/api/login');
+    
+        cy.get('input[name="email"]').type('Testmail@mail.com');
+        cy.get('input[name="password"]').type('12345678');
+    
+        cy.get('button[type="submit"]').click();
+    
+        cy.url().should('eq', 'http://localhost:8080/api/dashboard');
+
+        cy.get('a.dashboard-nav-link').contains('verlof overzicht').click();
+
+        cy.url().should('include', '/api/verlof-overzicht');
+
+        cy.get('.verlof-table').first().click();
+
+        cy.url().should('include', '/api/verlof/');
+
+        cy.get('a.grey-button').contains('Bewerken').click();
+
+        cy.url().should('include', '/verlof-update');
+
+        cy.get('input[name="begin_tijd"]').clear().type('10:00');
+        cy.get('input[name="begin_datum"]').clear().type('2025-03-05');
+        cy.get('input[name="eind_tijd"]').clear().type('16:00');
+        cy.get('input[name="eind_datum"]').clear().type('2025-03-06');
+        cy.get('textarea[name="reden"]').clear().type('Nieuwe reden voor verlof');
+
+        cy.get('button[type="submit"]').contains('Bijwerken').click();
+
+        cy.url().should('include', '/api/verlof-overzicht');
+
+        cy.contains('Nieuwe reden voor verlof').should('exist');
+
+      });
+  });
+  

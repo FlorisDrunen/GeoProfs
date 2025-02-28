@@ -1,4 +1,11 @@
-describe('Login Test met Database Seeding', () => {
+describe('Authentication tests', () => {
+  before(() => {
+    // Voer het reset-commando uit om de database te resetten
+    cy.exec('cd ./src/backend && docker compose exec backend php artisan migrate:refresh --seed')
+      .then((result) => {
+        expect(result.code).to.eq(0); // Controleer of het commando succesvol was
+      });
+  });
   it('Seed database', () => {
     // 1. Voer het seed commando uit
     cy.exec('cd ./src/backend && docker compose exec backend php artisan db:seed --class=OfficemanagerSeeder')
@@ -46,7 +53,7 @@ describe('Login Test met Database Seeding', () => {
     cy.get('button[type="submit"]').click();
     cy.url().should('eq', 'http://localhost:8080/api/dashboard');
 
-    cy.get('a.dashboard-button').contains('Logout').should('be.visible').click();
+    cy.contains('button', 'Logout').click();
     cy.url().should('eq', 'http://localhost:8080/api/login');
   });
 
