@@ -27,22 +27,19 @@ describe('Verlof tests', () => {
         cy.contains('Vakantie').should('exist');
       });
 
-      it('Edit verlof', () => {
+      it('Edit verlof & logout', () => {
         cy.visit('/api/login');
     
         cy.get('input[name="email"]').type('Testmail@mail.com');
         cy.get('input[name="password"]').type('12345678');
     
         cy.get('button[type="submit"]').click();
-    
         cy.url().should('eq', 'http://localhost:8080/api/dashboard');
 
         cy.get('a.dashboard-nav-link').contains('verlof overzicht').click();
-
-        cy.url().should('include', '/api/verlof-overzicht');
+        cy.url().should('eq', 'http://localhost:8080/api/verlof-overzicht');
 
         cy.get('.verlof-table').first().click();
-
         cy.url().should('include', '/api/verlof/');
 
         cy.get('a.grey-button').contains('Bewerken').click();
@@ -61,6 +58,59 @@ describe('Verlof tests', () => {
 
         cy.contains('Nieuwe reden voor verlof').should('exist');
 
+        cy.contains('button', 'Logout').click();
+        cy.url().should('eq', 'http://localhost:8080/api/login');
+      });
+
+      it('accept & deny request', () => {
+        cy.visit('/api/login');
+    
+        cy.get('input[name="email"]').type('adminGeoprofs@mail.com');
+        cy.get('input[name="password"]').type('12345678');
+    
+        cy.get('button[type="submit"]').click();
+        cy.url().should('eq', 'http://localhost:8080/api/dashboard');
+
+        cy.get('a.dashboard-nav-link').contains('verlof overzicht').click();
+        cy.url().should('eq', 'http://localhost:8080/api/verlof-overzicht');
+
+        cy.get('.verlof-table').first().click();
+        cy.url().should('include', '/api/verlof/');
+
+        cy.get('button[type="submit"]').contains('Goedkeuren').click();
+        cy.url().should('include', '/api/verlof/');
+        cy.get('.verlof-table-item').contains('Status').parent().contains('approved').should('exist');    
+
+        cy.get('.verlof-table').first().click();
+        cy.url().should('include', '/api/verlof/');
+
+        cy.get('button[type="submit"]').contains('Afwijzen').click();
+        cy.url().should('include', '/api/verlof/');
+        cy.get('.verlof-table-item').contains('Status').parent().contains('denied').should('exist');    
+
+      });
+      
+      it('delete denied verlof', () => {
+        cy.visit('/api/login');
+    
+        cy.get('input[name="email"]').type('Testmail@mail.com');
+        cy.get('input[name="password"]').type('12345678');
+    
+        cy.get('button[type="submit"]').click();
+        cy.url().should('eq', 'http://localhost:8080/api/dashboard');
+
+        cy.get('a.dashboard-nav-link').contains('verlof overzicht').click();
+        cy.url().should('eq', 'http://localhost:8080/api/verlof-overzicht');
+
+        cy.get('#statusFilter').select('denied');
+        cy.get('.verlof-table-item').contains('Status').parent().contains('denied').should('exist');    
+
+        cy.get('.verlof-table').first().click();
+        cy.url().should('include', '/api/verlof/');
+
+        cy.get('button[type="submit"]').contains('Verwijderen').click();
+
+        cy.url().should('include', '/api/verlof-overzicht');
       });
   });
   
