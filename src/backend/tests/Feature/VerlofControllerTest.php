@@ -165,7 +165,7 @@ class VerlofControllerTest extends TestCase
     }
 
     /**
-     * Test if the person who requested verlof can edit their request..
+     * Test if the person who requested verlof can edit their request.
      */
     public function test_owner_can_update_verlof_request()
     {
@@ -205,6 +205,9 @@ class VerlofControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * Test if the person who isn't the one who requested verlof can edit their request.
+     */
     //Test mislukt omdat het geen rol checks noch error handling heeft.
     public function test_non_owner_cannot_update_verlof_request()
     {

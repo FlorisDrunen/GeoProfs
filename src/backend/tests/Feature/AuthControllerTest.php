@@ -16,14 +16,12 @@ class AuthControllerTest extends TestCase
      */
     public function test_register_user_with_permission_officemanager()
     {
-        // Maak een gebruiker met de juiste rol aan en log deze in
         $adminUser = User::factory()->create([
-            'rol' => 'officemanager', // Zorg ervoor dat de gebruiker mag registreren
+            'rol' => 'officemanager', 
         ]);
     
-        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+        $this->actingAs($adminUser); 
     
-        // Simuleer een POST-request met geldige registratiegegevens
         $response = $this->postJson('/api/register', [
             'first_name' => 'Voornaam',
             'last_name' => 'Achternaam',
@@ -45,14 +43,12 @@ class AuthControllerTest extends TestCase
      */
     public function test_register_user_without_permission_werknemer()
     {
-        // Maak een gebruiker met de juiste rol aan en log deze in
         $adminUser = User::factory()->create([
-            'rol' => 'werknemer', // Zorg ervoor dat de gebruiker mag registreren
+            'rol' => 'werknemer', 
         ]);
     
-        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+        $this->actingAs($adminUser);
     
-        // Simuleer een POST-request met geldige registratiegegevens
         $response = $this->postJson('/api/register', [
             'first_name' => 'Voornaam',
             'last_name' => 'Achternaam',
@@ -75,14 +71,12 @@ class AuthControllerTest extends TestCase
      */
     public function test_register_user_without_permission_teammanager()
     {
-        // Maak een gebruiker met de juiste rol aan en log deze in
         $adminUser = User::factory()->create([
-            'rol' => 'teammanager', // Zorg ervoor dat de gebruiker mag registreren
+            'rol' => 'teammanager', 
         ]);
     
-        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+        $this->actingAs($adminUser); 
     
-        // Simuleer een POST-request met geldige registratiegegevens
         $response = $this->postJson('/api/register', [
             'first_name' => 'Voornaam',
             'last_name' => 'Achternaam',
@@ -105,14 +99,14 @@ class AuthControllerTest extends TestCase
      */
     public function test_register_user_with_impossible_role()
     {
-        // Maak een gebruiker met de juiste rol aan en log deze in
+        
         $adminUser = User::factory()->create([
-            'rol' => 'officemanager', // Zorg ervoor dat de gebruiker mag registreren
+            'rol' => 'officemanager', 
         ]);
     
-        $this->actingAs($adminUser); // Simuleer een ingelogde gebruiker
+        $this->actingAs($adminUser); 
     
-        // Simuleer een POST-request met geldige registratiegegevens
+        
         $response = $this->postJson('/api/register', [
             'first_name' => 'Voornaam',
             'last_name' => 'Achternaam',
@@ -140,7 +134,7 @@ class AuthControllerTest extends TestCase
     
         $this->actingAs($adminUser); 
         
-        // Create a user with a known password
+       
         $user = User::factory()->create([
             'first_name' => 'Voornaam',
             'last_name' => 'Achternaam',
@@ -149,13 +143,12 @@ class AuthControllerTest extends TestCase
             'password' => Hash::make('correct_password'),
         ]);
 
-        // Attempt to login with the wrong password
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => 'wrong_password',
         ]);
 
-        // Assert that the response indicates unauthorized access
+        
         $response->assertStatus(401); //Unauthorized
     }
 
@@ -164,13 +157,11 @@ class AuthControllerTest extends TestCase
      */
     public function test_login_with_invalid_email()
     {
-        // Simulate a POST request to the login endpoint with a non-existent email
         $response = $this->postJson('/api/login', [
             'email' => 'nonexistent@example.com',
             'password' => 'password123',
         ]);
 
-        // Assert that the response indicates unauthorized access
         $response->assertStatus(422); //Invalid data
     }
 
@@ -179,7 +170,7 @@ class AuthControllerTest extends TestCase
      */
     public function test_login_successful()
     {
-        // Create a user with a known password
+        
         $user = User::factory()->create([
             'first_name' => 'first name',
             'last_name' => 'last name',
@@ -188,13 +179,11 @@ class AuthControllerTest extends TestCase
             'password' => Hash::make('correct_password'),
         ]);
 
-        // Attempt to login with the correct credentials
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => 'correct_password',
         ]);
 
-        // Assert that the response is successful and contains the expected data
         $response->assertStatus(302); //redirect
         $response->assertRedirect(route('dashboard'));
     }
@@ -205,21 +194,20 @@ class AuthControllerTest extends TestCase
 
      public function test_logout_unsuccessful(){
 
-        // Simulate an unauthenticated POST request to the logout endpoint
         $response = $this->postJson('/api/logout');
 
-        // Assert that the response indicates a unsuccessful logout
-        $response->assertStatus(401); //Unauthorized
+        $response->assertStatus(401);
     }
 
+     /**
+     * Test if user needs to be logged in to log out.
+     */
     public function test_logout_successful(){
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        // Simulate an authenticated POST request to the logout endpoint
         $response = $this->postJson('/api/logout');
 
-        // Assert that the response indicates a successful logout
         $response->assertStatus(302); //Authorized
         $response->assertRedirect(route('login'));
     }

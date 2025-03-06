@@ -1,4 +1,8 @@
 describe('Verlof tests', () => {
+
+    /**
+     * Test if user can request verlof.
+     */
     it('Request verlof', () => {
         cy.visit('/api/login');
     
@@ -26,6 +30,10 @@ describe('Verlof tests', () => {
 
         cy.contains('Vakantie').should('exist');
       });
+
+     /**
+     * Test if user can edit their verlof request & logout.
+     */
 
       it('Edit verlof & logout', () => {
         cy.visit('/api/login');
@@ -62,6 +70,10 @@ describe('Verlof tests', () => {
         cy.url().should('eq', 'http://localhost:8080/api/login');
       });
 
+     /**
+     * Test if the officemanager can accept and deny verlof requests.
+     */
+
       it('accept & deny request', () => {
         cy.visit('/api/login');
     
@@ -89,6 +101,10 @@ describe('Verlof tests', () => {
         cy.get('.verlof-table-item').contains('Status').parent().contains('denied').should('exist');    
 
       });
+
+     /**
+     * Test if user can delete the (by office manager) denied request.
+     */
       
       it('delete denied verlof', () => {
         cy.visit('/api/login');
