@@ -9,6 +9,7 @@
          <h1>Register</h1>
     <form method="POST" action="{{ route(name: 'register') }}">
         @csrf
+        <!-- code voor het registreren -->
         <label for="name">First Name:</label>
         <input type="text" id="first_name" name="first_name" required>
         <br>
