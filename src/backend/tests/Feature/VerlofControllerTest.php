@@ -17,14 +17,14 @@ class VerlofControllerTest extends TestCase
      */
     public function test_create_verlof_with_permission_werknemer()
     {
-        $adminUser = User::factory()->create([
+        $User = User::factory()->create([
             'rol' => 'werknemer', 
         ]);
     
-        $this->actingAs($adminUser); 
+        $this->actingAs($User); 
 
         $response = $this->postJson('/api/verlof-nieuw', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '11:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '14:22',
@@ -37,7 +37,7 @@ class VerlofControllerTest extends TestCase
         $response->assertRedirect(route('verlofOverzicht'));
 
         $this->assertDatabaseHas('verlof', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '11:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '14:22',
@@ -53,14 +53,14 @@ class VerlofControllerTest extends TestCase
      */
     public function test_create_verlof_without_permission_teammanager()
     {
-        $adminUser = User::factory()->create([
+        $User = User::factory()->create([
             'rol' => 'teammanager', 
         ]);
     
-        $this->actingAs($adminUser); 
+        $this->actingAs($User); 
 
         $response = $this->postJson('/api/verlof-nieuw', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '12:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '15:22',
@@ -73,7 +73,7 @@ class VerlofControllerTest extends TestCase
         $response->assertSessionHasErrors(['error']);
         $response->assertRedirect(route('dashboard'));
         $this->assertDatabaseMissing('verlof', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '12:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '15:22',
@@ -123,14 +123,14 @@ class VerlofControllerTest extends TestCase
      */
     public function test_delete_verlof()
     {
-        $adminUser = User::factory()->create([
+        $User = User::factory()->create([
             'rol' => 'werknemer', 
         ]);
     
-        $this->actingAs($adminUser); 
+        $this->actingAs($User); 
 
         $response = $this->postJson('/api/verlof-nieuw', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '14:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '17:22',
@@ -140,7 +140,7 @@ class VerlofControllerTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('verlof', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '14:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '17:22',
@@ -154,7 +154,7 @@ class VerlofControllerTest extends TestCase
         $response->assertStatus(302); //redirect
         $response->assertRedirect(route('verlofOverzicht'));
         $this->assertDatabaseMissing('verlof', [
-            'user_id' => $adminUser->id,
+            'user_id' => $User->id,
             'begin_tijd' => '14:51',
             'begin_datum' => '2025-10-10',
             'eind_tijd' => '17:22',

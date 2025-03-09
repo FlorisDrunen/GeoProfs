@@ -127,13 +127,6 @@ class AuthControllerTest extends TestCase
      */
     public function test_login_with_invalid_password()
     {
-
-        $adminUser = User::factory()->create([
-            'rol' => 'officemanager', 
-        ]);
-    
-        $this->actingAs($adminUser); 
-        
        
         $user = User::factory()->create([
             'first_name' => 'Voornaam',
@@ -144,7 +137,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email' => 'Voornaam@mail.com',
             'password' => 'wrong_password',
         ]);
 
@@ -157,9 +150,18 @@ class AuthControllerTest extends TestCase
      */
     public function test_login_with_invalid_email()
     {
+
+        $user = User::factory()->create([
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
+            'rol' => 'werknemer',
+            'email' => 'Voornaam@mail.com',
+            'password' => Hash::make('correct_password'),
+        ]);
+        
         $response = $this->postJson('/api/login', [
             'email' => 'nonexistent@example.com',
-            'password' => 'password123',
+            'password' => 'correct_password',
         ]);
 
         $response->assertStatus(422); //Invalid data
@@ -172,15 +174,15 @@ class AuthControllerTest extends TestCase
     {
         
         $user = User::factory()->create([
-            'first_name' => 'first name',
-            'last_name' => 'last name',
+            'first_name' => 'Voornaam',
+            'last_name' => 'Achternaam',
             'rol' => 'werknemer',
-            'email' => 'sintayu.de.kuiper@example.com',
+            'email' => 'Voornaam@mail.com',
             'password' => Hash::make('correct_password'),
         ]);
 
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email' => 'Voornaam@mail.com',
             'password' => 'correct_password',
         ]);
 
