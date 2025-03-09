@@ -206,7 +206,6 @@
 }
 .dashboard-nav-container{
     color: #f4f4f9;
-    z-index: 10;
     background-color: rgb(0, 112, 164);
     width: 92%;
     display: flex;
@@ -275,7 +274,7 @@
 
 .verlof-table-item{
     padding: 15px;
-    min-width: 150px;
+    min-width: 90px;
     max-width: 200px;
     justify-items: center;
 }

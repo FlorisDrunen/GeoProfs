@@ -66,8 +66,13 @@ public function create()
             'status' => 'required'
         ]);
     
-        $verlof = Verlof::create($validatedFields);
-        return redirect()->route('verlofOverzicht');
+        $user = auth()->user();
+        if ($user->rol === 'werknemer') {
+            $verlof = Verlof::create($validatedFields);
+            return redirect()->route('verlofOverzicht');
+        }else{
+            return redirect()->route('dashboard')->withErrors(['error' => 'Je hebt geen toegang tot deze actie.']);;
+        }
     
         // return response()->json([
         //     'message' => 'Verlof succesvol aangemaakt!',
