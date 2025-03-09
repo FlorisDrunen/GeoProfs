@@ -10,6 +10,9 @@ class VerlofFactory extends Factory
 {
     protected $model = Verlof::class;
 
+    /**
+     * Create a default leave request used for testing.
+     */
     public function definition()
     {
         return [
