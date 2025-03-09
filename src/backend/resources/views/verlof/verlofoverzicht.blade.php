@@ -11,8 +11,10 @@
     </div>
     <div class="dashboard-form">
 
+      <!-- form for register en logout -->
         @csrf
         @if(Auth::user()->rol === 'officemanager')
+        <!-- Only show the leave request links when the users role is 'officemanager'-->
         <a class="dashboard-button-register" href="{{ route('register') }}">Register</a>
         @endif
         <form method="POST" action="{{ route('logout') }}">
@@ -21,9 +23,12 @@
         </form>
 
     </div>
+
+    <!-- nav links -->
     <div class="dashboard-nav-container">
         <ul class="dashboard-nav-list">
             <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
+            <!-- Only show the leave request links when the users role is 'werknemer'. -->
             @if(Auth::user()->rol === 'werknemer')
             <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
             @endif
@@ -35,11 +40,12 @@
                 <h1>Verlofoverzicht</h1>
                 <a  href="{{route('dashboard')}}"><button class="grey-button"> Dashboard </button></a>
                 @if(Auth::user()->rol === 'werknemer')
+                <!-- Only show the link when the users role is 'werknemer'. -->
                 <a  href="{{ route('verlofAanvraag') }}"><button class="grey-button"> Nieuw Verlof Aanvragen </button></a>
                 @endif
               
     
-                <!-- Filter Form -->
+                <!-- Filter Form. -->
                 <form method="GET" action="{{ route('verlofOverzicht') }}" class="mb-3">
                     <label for="statusFilter">Filter op status:</label>
                     <select name="status" id="statusFilter" class="form-select" onchange="this.form.submit()">
@@ -49,8 +55,10 @@
                         <option value="denied" {{ $status == 'denied' ? 'selected' : '' }}>Denied</option>
                     </select>
                 </form>
-                        <div class="table-holder">                            
+                        <div class="table-holder">                     
+                            <!-- Loop through all leave requests & show the data -->       
                             @foreach($verlofAanvragen as $item)
+                            <!-- Link to specific leave request'. -->
                                 <div class="verlof-table" onclick="navigateToVerlof({{ $item->id }})" style="cursor: pointer;">
     
                                     <div class="verlof-table-block">
@@ -65,8 +73,6 @@
                                 </div>
                             @endforeach
                         </div>
-                    <!-- </tbody> -->
-                <!-- </table> -->
             </div>
         </div>
     </div>
@@ -74,6 +80,9 @@
   
 
     <script>
+     /**
+     * Navigate to the individual request.
+     */
         function navigateToVerlof(id) {
             window.location.href = "{{ url('api/verlof') }}/" + id;
         }

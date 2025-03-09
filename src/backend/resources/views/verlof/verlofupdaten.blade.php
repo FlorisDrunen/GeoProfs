@@ -12,8 +12,10 @@
     </div>
     <div class="dashboard-form">
 
+     <!-- form for register en logout -->
         @csrf
         @if(Auth::user()->rol === 'officemanager')
+        <!-- Only show the leave request links when the users role is 'officemanager'-->
         <a class="dashboard-button" href="{{ route('register') }}">Register</a>
         @endif
         <form method="POST" action="{{ route('logout') }}">
@@ -22,9 +24,12 @@
         </form>
 
     </div>
+
+    <!-- nav links -->
     <div class="dashboard-nav-container">
         <ul class="dashboard-nav-list">
             <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
+            <!-- Only show the leave request links when the users role is 'werknemer'. -->
             @if(Auth::user()->rol === 'werknemer')
             <a class="dashboard-nav-link" href="{{ route('verlofAanvraag') }}">verlof aanvragen</a>
             @endif
@@ -33,6 +38,7 @@
     <div class="dashboard-info">
         <div class="verlof-container">
             <div class="login-box">
+                <!-- Form to update a leave request -->
                 <h1>Verlof Bewerken</h1>
 
                 <form action="{{ route('verlofUpdatenFunc', $verlofAanvragen->id) }}" method="POST">

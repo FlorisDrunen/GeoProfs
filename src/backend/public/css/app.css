@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* login pagina css */
 .login-body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -55,6 +56,8 @@
     background-color: #0056b3;
 }
 
+
+/* register pagina css */
 .register-body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -107,8 +110,9 @@
 .register-box button:hover {
     background-color: #0056b3;
 }
-/* --------------------dashboard css------------------------ */
 
+
+/* dashboard pagina css */
 .dashboard-body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -206,7 +210,6 @@
 }
 .dashboard-nav-container{
     color: #f4f4f9;
-    z-index: 10;
     background-color: rgb(0, 112, 164);
     width: 92%;
     display: flex;
@@ -262,7 +265,7 @@
     background-color: #e9eaeb;
 }
 
-
+/* verlog pagina css */
 .verlof-container{
     margin-top: 50px;
 }
@@ -275,7 +278,7 @@
 
 .verlof-table-item{
     padding: 15px;
-    min-width: 150px;
+    min-width: 90px;
     max-width: 200px;
     justify-items: center;
 }
