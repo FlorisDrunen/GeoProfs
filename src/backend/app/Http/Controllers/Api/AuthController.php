@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // hier wordt de register knop gelaten zien als je een officemanager bent
     public function showRegister()
     {
         if (Auth::user() && Auth::user()->rol !== 'officemanager') {
@@ -19,13 +18,12 @@ class AuthController extends Controller
         }
         return view('auth.register');
     }
-    // hier mag je iemand registreren als je een officemanager bent
     public function register(Request $request)
     {
         if (Auth::user() && Auth::user()->rol !== 'officemanager') {
             return redirect()->route('dashboard')->withErrors(['error' => 'Je hebt geen toegang tot deze actie.']);
         }
-        // dit zijn de velden waar je het account kan maken
+
         $validatedFields = $request->validate([
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
@@ -44,12 +42,11 @@ class AuthController extends Controller
         // ], 201);
         return redirect()->route('dashboard');
     }
-    // hier word de login view gelaten zien zodat je kan inloggen
+
     public function showLogin()
     {
         return view('auth.login');
     }
-    // hier word je login poging geregistereed en gecontroleerd of je een account hebt
     public function login(Request $request)
     {
         $request->validate([
@@ -71,7 +68,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         session(['user_id' => $user->id]);
- 
+        //known error but it dont do shit
         $token = $user->createToken('auth_token')->plainTextToken;
     
         return response()->json([
@@ -83,7 +80,7 @@ class AuthController extends Controller
     }
     
     
-    // hier word de sessie beeindicht als je uitlogd
+
     public function logout(Request $request)
     {
         session()->invalidate();

@@ -12,10 +12,8 @@
     </div>
     <div class="dashboard-form">
 
-        <!-- form for register en logout -->
         @csrf
         @if(Auth::user()->rol === 'officemanager')
-         <!-- Only show the leave request links when the users role is 'officemanager'-->
         <a class="dashboard-button" href="{{ route('register') }}">Register</a>
         @endif
         <form method="POST" action="{{ route('logout') }}">
@@ -24,8 +22,6 @@
         </form>
 
     </div>
-    
-     <!-- nav links -->
     <div class="dashboard-nav-container">
         <ul class="dashboard-nav-list">
             <a class="dashboard-nav-link" href="{{ route('verlofOverzicht') }}">verlof overzicht</a>
@@ -35,7 +31,6 @@
     <div class="dashboard-info">
       <div class="verlof-container">
           <div class="login-box">
-            <!-- Form to create a new leave request. -->
                 <h1>Nieuw Verlof Aanmaken</h1>
 
                 <form action="{{ route('verlofNieuw') }}" method="POST">

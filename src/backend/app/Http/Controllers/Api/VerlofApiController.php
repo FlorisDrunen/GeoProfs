@@ -20,49 +20,40 @@ class VerlofApiController
     //     //     "verlofaanvragen" => $verlofAanvragen
     //     // ]);
     // }
-
-    /**
-     * Show an overview of all leave requests depending on who views the page.
-     */
     
-    public function verlofOverzicht(Request $request)
-    {
-        $status = $request->input('status', 'pending'); // Standaard filter op 'pending'
-        $user = auth()->user(); // Haal de ingelogde gebruiker op
+public function verlofOverzicht(Request $request)
+{
+    $status = $request->input('status', 'pending'); // Standaard filter op 'pending'
+    $user = auth()->user(); // Haal de ingelogde gebruiker op
 
-        // Controleer de rol en pas de query aan
-        if ($user->rol === 'teammanager' || $user->rol === 'officemanager' ) {
-            // Teammanagers zien alle aanvragen
-            $verlofAanvragen = ($status == 'all') ? Verlof::all() : Verlof::where('status', $status)->get();
-        } else {
-            // Werknemers zien alleen hun eigen aanvragen
-            $verlofAanvragen = ($status == 'all') 
-                ? Verlof::where('user_id', $user->id)->get()
-                : Verlof::where('user_id', $user->id)->where('status', $status)->get();
-        }
-
-        return view('verlof.verlofoverzicht', compact('verlofAanvragen', 'status'));
+    // Controleer de rol en pas de query aan
+    if ($user->rol === 'teammanager' || $user->rol === 'officemanager' ) {
+        // Teammanagers zien alle aanvragen
+        $verlofAanvragen = ($status == 'all') ? Verlof::all() : Verlof::where('status', $status)->get();
+    } else {
+        // Werknemers zien alleen hun eigen aanvragen
+        $verlofAanvragen = ($status == 'all') 
+            ? Verlof::where('user_id', $user->id)->get()
+            : Verlof::where('user_id', $user->id)->where('status', $status)->get();
     }
 
-    /**
-     * return the form to create a new leave request, if the role is not 'werknemer'; return to dashboard.
-     */
+    return view('verlof.verlofoverzicht', compact('verlofAanvragen', 'status'));
+}
 
-    public function create()
-    {
-        $user = auth()->user();
-        if ($user->rol === 'werknemer') {
-        return view('verlof.verlofaanvraag'); 
-        }else{
-            return redirect()->route('dashboard')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
-        }
+public function create()
+{
+    $user = auth()->user();
+    if ($user->rol === 'werknemer') {
+    return view('verlof.verlofaanvraag'); 
+    }else{
+        return redirect()->route('dashboard')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
     }
+}
     
 
     /**
-     * Create a new leave request & send it to the database. Checks if the role is equal to 'werknemer', if not the user will be sent back to the dashboard.
+     * Store a newly created resource in storage.
      */
-
     public function store(Request $request)
     {
         $validatedFields = $request->validate([
@@ -75,13 +66,8 @@ class VerlofApiController
             'status' => 'required'
         ]);
     
-        $user = auth()->user();
-        if ($user->rol === 'werknemer') {
-            $verlof = Verlof::create($validatedFields);
-            return redirect()->route('verlofOverzicht');
-        }else{
-            return redirect()->route('dashboard')->withErrors(['error' => 'Je hebt geen toegang tot deze actie.']);;
-        }
+        $verlof = Verlof::create($validatedFields);
+        return redirect()->route('verlofOverzicht');
     
         // return response()->json([
         //     'message' => 'Verlof succesvol aangemaakt!',
@@ -91,23 +77,19 @@ class VerlofApiController
     
 
     /**
-     * Display the specified resource with the corresponding user id. Checks if the user id matches that of the person who sent the request or if the user has an office/team manager role.
+     * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $verlofAanvragen = Verlof::with('user')->findOrFail($id);
-        $user = auth()->user(); 
+public function show(string $id)
+{
+    $verlofAanvragen = Verlof::with('user')->findOrFail($id);
+    $user = auth()->user(); 
 
-        if ($verlofAanvragen->user_id === $user->id || $user->rol === 'teammanager' || $user->rol === 'officemanager') {
-            
-            return view('verlof.enkelVerlof', compact('verlofAanvragen'));
-        }
-        return redirect()->route('verlofOverzicht')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
+    if ($verlofAanvragen->user_id === $user->id || $user->rol === 'teammanager' || $user->rol === 'officemanager') {
+        
+        return view('verlof.enkelVerlof', compact('verlofAanvragen'));
     }
-
-    /**
-     * Set the status enum to 'approved'
-     */
+    return redirect()->route('verlofOverzicht')->with('error', 'Je mag deze verlofaanvraag niet bewerken.');
+}
 
     public function approve($id)
     {
@@ -117,10 +99,6 @@ class VerlofApiController
 
         return redirect()->back()->with('success', 'Verlof is goedgekeurd.');
     }
-
-    /**
-     * Set the status enum to 'deny'
-     */
 
     public function deny($id)
     {
@@ -132,9 +110,6 @@ class VerlofApiController
     }
 
 
-     /**
-     * Redirect to the view where you can edit a leave request. Checks if the user id is the same as the person who requested leave.
-     */
     public function updateview($id)
     {
         $verlofAanvragen = Verlof::findOrFail($id);
@@ -146,10 +121,6 @@ class VerlofApiController
     
         return view('verlof.verlofupdaten', compact('verlofAanvragen'));
     }
-
-     /**
-     * updates a leave request.
-     */
     
     public function update(Request $request, $id)
     {
@@ -178,7 +149,7 @@ class VerlofApiController
     
 
     /**
-     * Removes the specified resource from the database.
+     * Remove the specified resource from storage.
      */
     public function destroy(Request $request, string $id)
     {

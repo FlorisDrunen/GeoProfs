@@ -21,9 +21,6 @@ class Verlof extends Model
         'status'
     ];
     
-     /**
-     * Link user_id in Verlof to id in User.
-     */
     public function user()
 {
     return $this->belongsTo(User::class, 'user_id', 'id');
